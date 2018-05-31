@@ -1,7 +1,7 @@
 # Личный проект «Пиксель хантер» [![Build status][travis-image]][travis-url]
 
 * Студент: [Александр Васильев](https://up.htmlacademy.ru/ecmascript/5/user/659291).
-* Наставник: `Неизвестно`.
+* Наставник: [Игорь Антонов](659291-pixel-hunter).
 
 ---
 
