@@ -1,6 +1,8 @@
 // #rules
 import {getElementFromTeamplate} from '/Users/Admin/pixel-hunter/659291-pixel-hunter/js/elemFromTemplate.js';
-
+import {changeScreen} from './selectPage';
+import moduleOne from '/Users/Admin/pixel-hunter/659291-pixel-hunter/js/greetings';
+import moduleThree from './game-1';
 const elem = getElementFromTeamplate(`<header class="header">
 <div class="header__back">
   <button class="back">
@@ -21,10 +23,38 @@ const elem = getElementFromTeamplate(`<header class="header">
   Готовы?
 </p>
 <form class="rules__form">
-  <input class="rules__input" type="text" placeholder="Ваше Имя">
+  <input class="rules__input" type="text" placeholder="Ваше Имя" value="">
   <button class="rules__button  continue" type="submit" disabled>Go!</button>
 </form>
 </div>`);
+
+const changePause = () => {
+  const backButton = document.querySelector(`.back`);
+
+  backButton.addEventListener(`click`, () => {
+    changeScreen(moduleOne);
+  });
+
+
+};
+
+setTimeout(changePause, 3000);
+
+
+const changePause2 = () => {
+  const rulesButton = document.querySelector(`.rules__button`);
+  // const rulesInput = document.querySelector(`.rules__input`);
+
+  // if (rulesInput.value !== ``) {
+  rulesButton.disabled = false;
+  // }
+  rulesButton.addEventListener(`click`, () => {
+
+    changeScreen(moduleThree);
+  });
+};
+setTimeout(changePause2, 3000);
+
 
 const moduleTwo = elem;
 export default moduleTwo;

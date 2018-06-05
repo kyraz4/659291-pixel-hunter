@@ -19,7 +19,6 @@ const elem = getElementFromTeamplate(`<div id="main" class="central__content">
   </div>
 </footer>`);
 
-
 const agreeStarButton = document.querySelector(`.intro__asterisk`);
 
 agreeStarButton.addEventListener(`click`, () => {
