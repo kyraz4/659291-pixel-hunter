@@ -1,7 +1,7 @@
 // #intro
-import {getElementFromTeamplate} from '/Users/Admin/pixel-hunter/659291-pixel-hunter/js/elemFromTemplate.js';
-import moduleOne from '/Users/Admin/pixel-hunter/659291-pixel-hunter/js/greetings';
-import {changeScreen} from '/Users/Admin/pixel-hunter/659291-pixel-hunter/js/selectPage.js';
+import {getElementFromTeamplate} from '../elemFromTemplate';
+import {changeScreen} from '../selectPage';
+import moduleOne from './greetings';
 const elem = getElementFromTeamplate(`<div id="main" class="central__content">
   <div id="intro" class="intro">
     <h1 class="intro__asterisk">*</h1>
@@ -19,12 +19,12 @@ const elem = getElementFromTeamplate(`<div id="main" class="central__content">
   </div>
 </footer>`);
 
+
+const module0 = elem;
+
+export default module0;
 const agreeStarButton = document.querySelector(`.intro__asterisk`);
 
 agreeStarButton.addEventListener(`click`, () => {
   changeScreen(moduleOne);
 });
-
-const module0 = elem;
-
-export default module0;

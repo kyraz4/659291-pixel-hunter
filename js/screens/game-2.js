@@ -1,7 +1,7 @@
-// #game-3
-import {getElementFromTeamplate} from '/Users/Admin/pixel-hunter/659291-pixel-hunter/js/elemFromTemplate.js';
-import {changeScreen} from './selectPage';
-import moduleOne from '/Users/Admin/pixel-hunter/659291-pixel-hunter/js/greetings';
+// #game-2
+import {getElementFromTeamplate} from '../elemFromTemplate';
+import {changeScreen} from '../selectPage';
+import moduleOne from './greetings';
 
 const elem = getElementFromTeamplate(`<header class="header">
 <div class="header__back">
@@ -18,16 +18,18 @@ const elem = getElementFromTeamplate(`<header class="header">
 </div>
 </header>
 <div class="game">
-<p class="game__task">Найдите рисунок среди изображений</p>
-<form class="game__content  game__content--triple">
+<p class="game__task">Угадай, фото или рисунок?</p>
+<form class="game__content  game__content--wide">
   <div class="game__option">
-    <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
-  </div>
-  <div class="game__option  game__option--selected">
-    <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
-  </div>
-  <div class="game__option">
-    <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
+    <img src="http://placehold.it/705x455" alt="Option 1" width="705" height="455">
+    <label class="game__answer  game__answer--photo">
+      <input name="question1" type="radio" value="photo">
+      <span>Фото</span>
+    </label>
+    <label class="game__answer  game__answer--wide  game__answer--paint">
+      <input name="question1" type="radio" value="paint">
+      <span>Рисунок</span>
+    </label>
   </div>
 </form>
 <div class="stats">
@@ -46,6 +48,11 @@ const elem = getElementFromTeamplate(`<header class="header">
 </div>
 </div>`);
 
+
+const moduleFourth = elem;
+
+export default moduleFourth;
+
 const changePause = () => {
   const backButton = document.querySelector(`.back`);
 
@@ -56,7 +63,3 @@ const changePause = () => {
 };
 
 setTimeout(changePause, 3000);
-
-const moduleFifth = elem;
-
-export default moduleFifth;

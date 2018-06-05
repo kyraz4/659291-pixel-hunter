@@ -1,7 +1,7 @@
 // #stats
-import {getElementFromTeamplate} from '/Users/Admin/pixel-hunter/659291-pixel-hunter/js/elemFromTemplate.js';
-import {changeScreen} from './selectPage';
-import moduleOne from '/Users/Admin/pixel-hunter/659291-pixel-hunter/js/greetings';
+import {getElementFromTeamplate} from '../elemFromTemplate';
+import {changeScreen} from '../selectPage';
+import moduleOne from './greetings';
 
 const elem = getElementFromTeamplate(`<header class="header">
 <div class="header__back">
@@ -112,6 +112,11 @@ const elem = getElementFromTeamplate(`<header class="header">
 </table>
 </div>`);
 
+
+const moduleSixth = elem;
+
+export default moduleSixth;
+
 const changePause = () => {
   const backButton = document.querySelector(`.back`);
 
@@ -122,8 +127,3 @@ const changePause = () => {
 };
 
 setTimeout(changePause, 3000);
-
-const moduleSixth = elem;
-
-export default moduleSixth;
-

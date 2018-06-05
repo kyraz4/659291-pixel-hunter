@@ -1,7 +1,7 @@
 // #rules
-import {getElementFromTeamplate} from '/Users/Admin/pixel-hunter/659291-pixel-hunter/js/elemFromTemplate.js';
+import {getElementFromTeamplate} from '../elemFromTemplate';
 import {changeScreen} from './selectPage';
-import moduleOne from '/Users/Admin/pixel-hunter/659291-pixel-hunter/js/greetings';
+import moduleOne from './greetings';
 import moduleThree from './game-1';
 const elem = getElementFromTeamplate(`<header class="header">
 <div class="header__back">
@@ -27,6 +27,10 @@ const elem = getElementFromTeamplate(`<header class="header">
   <button class="rules__button  continue" type="submit" disabled>Go!</button>
 </form>
 </div>`);
+
+
+const moduleTwo = elem;
+export default moduleTwo;
 
 const changePause = () => {
   const backButton = document.querySelector(`.back`);
@@ -54,7 +58,3 @@ const changePause2 = () => {
   });
 };
 setTimeout(changePause2, 3000);
-
-
-const moduleTwo = elem;
-export default moduleTwo;

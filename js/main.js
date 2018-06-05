@@ -1,5 +1,5 @@
-import module0 from '/Users/Admin/pixel-hunter/659291-pixel-hunter/js/intro.js';
-import {changeScreen} from '/Users/Admin/pixel-hunter/659291-pixel-hunter/js/selectPage';
+import module0 from './screens/intro';
+import {changeScreen} from '../selectPage';
 // changeScreen(module0);
 // const RIGHT_ARROW = 37;
 // const LEFT_ARROW = 39;

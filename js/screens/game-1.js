@@ -1,7 +1,7 @@
 // #game-1
-import {getElementFromTeamplate} from '/Users/Admin/pixel-hunter/659291-pixel-hunter/js/elemFromTemplate.js';
-import {changeScreen} from './selectPage';
-import moduleOne from '/Users/Admin/pixel-hunter/659291-pixel-hunter/js/greetings';
+import {getElementFromTeamplate} from '../elemFromTemplate';
+import {changeScreen} from '../selectPage';
+import moduleOne from './greetings';
 const elem = getElementFromTeamplate(`<header class="header">
 <div class="header__back">
   <button class="back">
@@ -57,6 +57,12 @@ const elem = getElementFromTeamplate(`<header class="header">
   </ul>
 </div>
 </div>`);
+
+
+const moduleThree = elem;
+
+export default moduleThree;
+
 // почему-то тут не работает возвращение на страницу приветствия
 const changePause = () => {
   const backButton = document.querySelector(`.back`);
@@ -68,7 +74,3 @@ const changePause = () => {
 };
 
 setTimeout(changePause, 3000);
-
-const moduleThree = elem;
-
-export default moduleThree;

@@ -1,7 +1,7 @@
 // #greetings.js
-import {getElementFromTeamplate} from '/Users/Admin/pixel-hunter/659291-pixel-hunter/js/elemFromTemplate.js';
-import {changeScreen} from '/Users/Admin/pixel-hunter/659291-pixel-hunter/js/selectPage.js';
-import moduleTwo from '/Users/Admin/pixel-hunter/659291-pixel-hunter/js/rules.js';
+import {getElementFromTeamplate} from '../elemFromTemplate';
+import {changeScreen} from '../selectPage';
+import moduleTwo from '../screens/rules';
 
 const elem = getElementFromTeamplate(`<div class="greeting central--blur">
 <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>
@@ -17,6 +17,10 @@ const elem = getElementFromTeamplate(`<div class="greeting central--blur">
 <div class="greeting__continue"><span><img src="img/arrow_right.svg" width="64" height="64" alt="Next"></span></div>
 </div>`);
 
+
+const moduleOne = elem;
+export default moduleOne;
+
 const changePause = () => {
   const arrowButton = document.querySelector(`.greeting__continue`);
 
@@ -25,6 +29,3 @@ const changePause = () => {
   });
 };
 setTimeout(changePause, 1500);
-
-const moduleOne = elem;
-export default moduleOne;

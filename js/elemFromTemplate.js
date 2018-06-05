@@ -1,7 +1,7 @@
 // #elemFromTemplate
 
 export const getElementFromTeamplate = (temp) => {
-  let newDom = document.createElement(`div`);
+  const newDom = document.createElement(`div`);
   newDom.innerHTML = temp;
   return newDom;
 };
