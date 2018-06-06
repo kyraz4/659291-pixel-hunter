@@ -1,8 +1,8 @@
-// #intro
 import {getElementFromTeamplate} from '../elemFromTemplate';
-import {changeScreen} from '../selectPage';
-import moduleOne from './greetings';
-const elem = getElementFromTeamplate(`<div id="main" class="central__content">
+import changeScreen from '../selectPage';
+import greetingsScreen from '../screens/greetings';
+
+const introScreen = getElementFromTeamplate(`<div id="main" class="central__content">
   <div id="intro" class="intro">
     <h1 class="intro__asterisk">*</h1>
     <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>
@@ -19,12 +19,11 @@ const elem = getElementFromTeamplate(`<div id="main" class="central__content">
   </div>
 </footer>`);
 
-
-const module0 = elem;
-
-export default module0;
 const agreeStarButton = document.querySelector(`.intro__asterisk`);
 
 agreeStarButton.addEventListener(`click`, () => {
-  changeScreen(moduleOne);
+  alert('dada');
+  // changeScreen(greetingsScreen);
 });
+
+export default introScreen;

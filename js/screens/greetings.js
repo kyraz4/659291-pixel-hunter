@@ -18,8 +18,8 @@ const elem = getElementFromTeamplate(`<div class="greeting central--blur">
 </div>`);
 
 
-const moduleOne = elem;
-export default moduleOne;
+const greetingsScreen = elem;
+export default greetingsScreen;
 
 const changePause = () => {
   const arrowButton = document.querySelector(`.greeting__continue`);
