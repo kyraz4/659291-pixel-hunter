@@ -1,6 +1,4 @@
-// #stats
 import {getElementFromTeamplate} from '../elemFromTemplate';
-
 const statsScreen = getElementFromTeamplate(`<header class="header">
 <div class="header__back">
   <button class="back">
@@ -109,7 +107,5 @@ const statsScreen = getElementFromTeamplate(`<header class="header">
   </tr>
 </table>
 </div>`);
-
-
 export default statsScreen;
 

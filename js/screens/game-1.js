@@ -1,10 +1,8 @@
-
 import {getElementFromTeamplate} from '../elemFromTemplate';
 import changeScreen from '../selectPage';
 import greetingsScreen from './greetings';
 import addDelegatedEventListener from '../addDelegatedEventListener';
 import gameTwoScreen from './game-2';
-
 const gameOneScreen = getElementFromTeamplate(`<header class="header">
 <div class="header__back">
   <button class="back">
@@ -60,24 +58,13 @@ const gameOneScreen = getElementFromTeamplate(`<header class="header">
   </ul>
 </div>
 </div>`);
-
 addDelegatedEventListener(`click`, `.back`, () => changeScreen(greetingsScreen));
-
-// addDelegatedEventListener(`input`, `.game__content input`, () => {
-// const gameOneCheckedFirst = gameOneScreen.querySelector(`.game__content input[name=question1][value=photo]`);
-// const gameOneCheckedSecond = gameOneScreen.querySelector(`.game__content input[name=question1][value=paint]`);
-// const gameTwoCheckedFirst = gameOneScreen.querySelector(`.game__content input[name=question2][value=photo]`);
-// const gameTwoCheckedSecond = gameOneScreen.querySelector(`.game__content input[name=question2][value=paint]`);
-// console.log(gameOneCheckedFirst.chahge);
-// if (((gameOneCheckedFirst.click) || (gameOneCheckedSecond.click)) && ((gameTwoCheckedFirst.click) || (gameTwoCheckedSecond.click))) {
-//   changeScreen(gameTwoScreen);
-// }
-// });
-addDelegatedEventListener(`input`, `.game__content input[name=question1]`, () => {
-  addDelegatedEventListener(`input`, `.game__content input`, () => changeScreen(gameTwoScreen));
+addDelegatedEventListener(`change`, `.game__content`, () => {
+  const firstQuestionChecked = document.querySelector(`.game__content [name=question1]:checked`) !== null;
+  const secondQuestionChecked = document.querySelector(`.game__content [name=question2]:checked`) !== null;
+  if (firstQuestionChecked && secondQuestionChecked) {
+    changeScreen(gameTwoScreen);
+  }
 });
-// if ((gameOneChecked.checked === true) && (gameTwoChecked.checked === true)) {
-//   changeScreen(gameTwoScreen);
-// }
-
 export default gameOneScreen;
+

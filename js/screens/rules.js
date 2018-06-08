@@ -1,7 +1,6 @@
 
 import {getElementFromTeamplate} from '../elemFromTemplate';
 import changeScreen from '../selectPage';
-// import greetingsScreen from './greetings';
 import gameOneScreen from './game-1';
 import addDelegatedEventListener from '../addDelegatedEventListener';
 const rulesScreen = getElementFromTeamplate(`<header class="header">
@@ -28,17 +27,12 @@ const rulesScreen = getElementFromTeamplate(`<header class="header">
   <button class="rules__button  continue" type="submit" disabled>Go!</button>
 </form>
 </div>`);
-
 addDelegatedEventListener(`input`, `.rules__input`, (evt) => {
   const goButton = document.querySelector(`.rules__button`);
   goButton.disabled = evt.target.value === ``;
 });
-
-
 addDelegatedEventListener(`submit`, `.rules__form`, (evt) => {
   evt.preventDefault();
   changeScreen(gameOneScreen);
 });
-
-
 export default rulesScreen;
