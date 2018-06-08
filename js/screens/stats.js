@@ -1,9 +1,7 @@
 // #stats
 import {getElementFromTeamplate} from '../elemFromTemplate';
-import {changeScreen} from '../selectPage';
-import moduleOne from './greetings';
 
-const elem = getElementFromTeamplate(`<header class="header">
+const statsScreen = getElementFromTeamplate(`<header class="header">
 <div class="header__back">
   <button class="back">
     <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
@@ -113,17 +111,5 @@ const elem = getElementFromTeamplate(`<header class="header">
 </div>`);
 
 
-const moduleSixth = elem;
+export default statsScreen;
 
-export default moduleSixth;
-
-const changePause = () => {
-  const backButton = document.querySelector(`.back`);
-
-  backButton.addEventListener(`click`, () => {
-    changeScreen(moduleOne);
-  });
-
-};
-
-setTimeout(changePause, 3000);

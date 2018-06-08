@@ -1,9 +1,10 @@
-// #rules
+
 import {getElementFromTeamplate} from '../elemFromTemplate';
-import {changeScreen} from './selectPage';
-import moduleOne from './greetings';
-import moduleThree from './game-1';
-const elem = getElementFromTeamplate(`<header class="header">
+import changeScreen from '../selectPage';
+// import greetingsScreen from './greetings';
+import gameOneScreen from './game-1';
+import addDelegatedEventListener from '../addDelegatedEventListener';
+const rulesScreen = getElementFromTeamplate(`<header class="header">
 <div class="header__back">
   <button class="back">
     <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
@@ -28,33 +29,16 @@ const elem = getElementFromTeamplate(`<header class="header">
 </form>
 </div>`);
 
-
-const moduleTwo = elem;
-export default moduleTwo;
-
-const changePause = () => {
-  const backButton = document.querySelector(`.back`);
-
-  backButton.addEventListener(`click`, () => {
-    changeScreen(moduleOne);
-  });
+addDelegatedEventListener(`input`, `.rules__input`, (evt) => {
+  const goButton = document.querySelector(`.rules__button`);
+  goButton.disabled = evt.target.value === ``;
+});
 
 
-};
+addDelegatedEventListener(`submit`, `.rules__form`, (evt) => {
+  evt.preventDefault();
+  changeScreen(gameOneScreen);
+});
 
-setTimeout(changePause, 3000);
 
-
-const changePause2 = () => {
-  const rulesButton = document.querySelector(`.rules__button`);
-  // const rulesInput = document.querySelector(`.rules__input`);
-
-  // if (rulesInput.value !== ``) {
-  rulesButton.disabled = false;
-  // }
-  rulesButton.addEventListener(`click`, () => {
-
-    changeScreen(moduleThree);
-  });
-};
-setTimeout(changePause2, 3000);
+export default rulesScreen;

@@ -1,8 +1,11 @@
-// #game-1
+
 import {getElementFromTeamplate} from '../elemFromTemplate';
-import {changeScreen} from '../selectPage';
-import moduleOne from './greetings';
-const elem = getElementFromTeamplate(`<header class="header">
+import changeScreen from '../selectPage';
+import greetingsScreen from './greetings';
+import addDelegatedEventListener from '../addDelegatedEventListener';
+import gameTwoScreen from './game-2';
+
+const gameOneScreen = getElementFromTeamplate(`<header class="header">
 <div class="header__back">
   <button class="back">
     <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
@@ -58,19 +61,23 @@ const elem = getElementFromTeamplate(`<header class="header">
 </div>
 </div>`);
 
+addDelegatedEventListener(`click`, `.back`, () => changeScreen(greetingsScreen));
 
-const moduleThree = elem;
+// addDelegatedEventListener(`input`, `.game__content input`, () => {
+// const gameOneCheckedFirst = gameOneScreen.querySelector(`.game__content input[name=question1][value=photo]`);
+// const gameOneCheckedSecond = gameOneScreen.querySelector(`.game__content input[name=question1][value=paint]`);
+// const gameTwoCheckedFirst = gameOneScreen.querySelector(`.game__content input[name=question2][value=photo]`);
+// const gameTwoCheckedSecond = gameOneScreen.querySelector(`.game__content input[name=question2][value=paint]`);
+// console.log(gameOneCheckedFirst.chahge);
+// if (((gameOneCheckedFirst.click) || (gameOneCheckedSecond.click)) && ((gameTwoCheckedFirst.click) || (gameTwoCheckedSecond.click))) {
+//   changeScreen(gameTwoScreen);
+// }
+// });
+addDelegatedEventListener(`input`, `.game__content input[name=question1]`, () => {
+  addDelegatedEventListener(`input`, `.game__content input`, () => changeScreen(gameTwoScreen));
+});
+// if ((gameOneChecked.checked === true) && (gameTwoChecked.checked === true)) {
+//   changeScreen(gameTwoScreen);
+// }
 
-export default moduleThree;
-
-// почему-то тут не работает возвращение на страницу приветствия
-const changePause = () => {
-  const backButton = document.querySelector(`.back`);
-
-  backButton.addEventListener(`click`, () => {
-    changeScreen(moduleOne);
-  });
-
-};
-
-setTimeout(changePause, 3000);
+export default gameOneScreen;

@@ -1,6 +1,7 @@
 import {getElementFromTeamplate} from '../elemFromTemplate';
 import changeScreen from '../selectPage';
 import greetingsScreen from '../screens/greetings';
+import addDelegatedEventListener from '../addDelegatedEventListener';
 
 const introScreen = getElementFromTeamplate(`<div id="main" class="central__content">
   <div id="intro" class="intro">
@@ -19,11 +20,6 @@ const introScreen = getElementFromTeamplate(`<div id="main" class="central__cont
   </div>
 </footer>`);
 
-const agreeStarButton = document.querySelector(`.intro__asterisk`);
-
-agreeStarButton.addEventListener(`click`, () => {
-  alert('dada');
-  // changeScreen(greetingsScreen);
-});
+addDelegatedEventListener(`click`, `.intro__asterisk`, () => changeScreen(greetingsScreen));
 
 export default introScreen;

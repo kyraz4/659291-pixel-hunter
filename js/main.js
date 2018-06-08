@@ -1,7 +1,10 @@
 import introScreen from './screens/intro';
-import {changeScreen} from './selectPage';
+import changeScreen from './selectPage';
 
 changeScreen(introScreen);
+
+
+// changeScreen(introScreen);
 // changeScreen(module0);
 // const RIGHT_ARROW = 37;
 // const LEFT_ARROW = 39;

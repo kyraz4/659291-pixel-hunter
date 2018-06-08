@@ -1,9 +1,10 @@
-// #greetings.js
 import {getElementFromTeamplate} from '../elemFromTemplate';
-import {changeScreen} from '../selectPage';
-import moduleTwo from '../screens/rules';
+import addDelegatedEventListener from '../addDelegatedEventListener';
 
-const elem = getElementFromTeamplate(`<div class="greeting central--blur">
+import changeScreen from '../selectPage';
+import rulesScreen from '../screens/rules';
+
+const greetingsScreen = getElementFromTeamplate(`<div class="greeting central--blur">
 <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>
 <h1 class="greeting__asterisk">*</h1>
 <div class="greeting__challenge">
@@ -18,14 +19,7 @@ const elem = getElementFromTeamplate(`<div class="greeting central--blur">
 </div>`);
 
 
-const greetingsScreen = elem;
+addDelegatedEventListener(`click`, `.header__back`, () => changeScreen(greetingsScreen));
+addDelegatedEventListener(`click`, `.greeting__continue`, () => changeScreen(rulesScreen));
+
 export default greetingsScreen;
-
-const changePause = () => {
-  const arrowButton = document.querySelector(`.greeting__continue`);
-
-  arrowButton.addEventListener(`click`, () => {
-    changeScreen(moduleTwo);
-  });
-};
-setTimeout(changePause, 1500);

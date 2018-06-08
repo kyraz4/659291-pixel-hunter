@@ -1,9 +1,10 @@
 // #game-3
 import {getElementFromTeamplate} from '../elemFromTemplate';
-import {changeScreen} from '../selectPage';
-import moduleOne from './greetings';
+import changeScreen from '../selectPage';
+import addDelegatedEventListener from '../addDelegatedEventListener';
+import statsScreen from './stats';
 
-const elem = getElementFromTeamplate(`<header class="header">
+const gameThreeScreen = getElementFromTeamplate(`<header class="header">
 <div class="header__back">
   <button class="back">
     <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
@@ -46,18 +47,5 @@ const elem = getElementFromTeamplate(`<header class="header">
 </div>
 </div>`);
 
-
-const moduleFifth = elem;
-
-export default moduleFifth;
-
-const changePause = () => {
-  const backButton = document.querySelector(`.back`);
-
-  backButton.addEventListener(`click`, () => {
-    changeScreen(moduleOne);
-  });
-
-};
-
-setTimeout(changePause, 3000);
+addDelegatedEventListener(`click`, `.game__option`, () => changeScreen(statsScreen));
+export default gameThreeScreen;
