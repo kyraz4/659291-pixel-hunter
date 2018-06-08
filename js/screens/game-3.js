@@ -1,9 +1,7 @@
-// #game-3
 import {getElementFromTeamplate} from '../elemFromTemplate';
 import changeScreen from '../selectPage';
 import addDelegatedEventListener from '../addDelegatedEventListener';
 import statsScreen from './stats';
-
 const gameThreeScreen = getElementFromTeamplate(`<header class="header">
 <div class="header__back">
   <button class="back">
@@ -46,6 +44,10 @@ const gameThreeScreen = getElementFromTeamplate(`<header class="header">
   </ul>
 </div>
 </div>`);
-
-addDelegatedEventListener(`click`, `.game__option`, () => changeScreen(statsScreen));
+addDelegatedEventListener(`click`, `.game__content--triple`, () => {
+  const chooseClick = document.querySelectorAll(`.game__option`) !== null;
+  if (chooseClick) {
+    changeScreen(statsScreen);
+  }
+});
 export default gameThreeScreen;
