@@ -2,7 +2,6 @@ import {getElementFromTeamplate} from '../elemFromTemplate';
 import changeScreen from '../selectPage';
 import greetingsScreen from '../screens/greetings';
 import addDelegatedEventListener from '../addDelegatedEventListener';
-
 const introScreen = getElementFromTeamplate(`<div id="main" class="central__content">
   <div id="intro" class="intro">
     <h1 class="intro__asterisk">*</h1>
@@ -19,7 +18,5 @@ const introScreen = getElementFromTeamplate(`<div id="main" class="central__cont
     <a href="https://vk.com/htmlacademy" class="social-link  social-link--vk">Вконтакте</a>
   </div>
 </footer>`);
-
 addDelegatedEventListener(`click`, `.intro__asterisk`, () => changeScreen(greetingsScreen));
-
 export default introScreen;

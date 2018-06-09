@@ -1,9 +1,7 @@
 import {getElementFromTeamplate} from '../elemFromTemplate';
 import addDelegatedEventListener from '../addDelegatedEventListener';
-
 import changeScreen from '../selectPage';
 import rulesScreen from '../screens/rules';
-
 const greetingsScreen = getElementFromTeamplate(`<div class="greeting central--blur">
 <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>
 <h1 class="greeting__asterisk">*</h1>
@@ -17,9 +15,6 @@ const greetingsScreen = getElementFromTeamplate(`<div class="greeting central--b
 </div>
 <div class="greeting__continue"><span><img src="img/arrow_right.svg" width="64" height="64" alt="Next"></span></div>
 </div>`);
-
-
 addDelegatedEventListener(`click`, `.header__back`, () => changeScreen(greetingsScreen));
 addDelegatedEventListener(`click`, `.greeting__continue`, () => changeScreen(rulesScreen));
-
 export default greetingsScreen;

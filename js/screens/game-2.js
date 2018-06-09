@@ -1,4 +1,3 @@
-// #game-2
 import {getElementFromTeamplate} from '../elemFromTemplate';
 import changeScreen from '../selectPage';
 import addDelegatedEventListener from '../addDelegatedEventListener';
@@ -47,8 +46,11 @@ const gameTwoScreen = getElementFromTeamplate(`<header class="header">
   </ul>
 </div>
 </div>`);
-
-addDelegatedEventListener(`input`, `.game__content input[name=question1]`, () => changeScreen(gameThreeScreen));
-addDelegatedEventListener(`input`, `.game__content input[name=question2]`, () => changeScreen(gameThreeScreen));
-
+addDelegatedEventListener(`change`, `.game__content--wide`, () => {
+  const firstChoose = document.querySelector(`.game__content [value=photo]:checked`) !== null;
+  const secondtChoose = document.querySelector(`.game__content [value=paint]:checked`) !== null;
+  if (firstChoose || secondtChoose) {
+    changeScreen(gameThreeScreen);
+  }
+});
 export default gameTwoScreen;

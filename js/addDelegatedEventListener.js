@@ -10,6 +10,5 @@ const addDelegatedEventListener = (eventType, targetSelector, eventHandler, elem
     }
   });
 };
-
 export default addDelegatedEventListener;
 
