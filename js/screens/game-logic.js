@@ -1,10 +1,4 @@
 // логика
-export const INITIAL_GAME = {
-  level: 0,
-  lives: 3,
-  time: 30,
-  stats: [`unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`, `unknown`]
-};
 
 export const changeLevel = (game, level) => {
   if (typeof level !== `number`) {
@@ -27,3 +21,14 @@ export const fail = (game) => {
 
   return Object.assign({}, game, {lives});
 };
+
+export const createInitialState = () => {
+  return {
+    lives: INITIAL_GAME.LIVES_COUNT,
+    time: INITIAL_GAME.SECONDS_COUNT_BY_QUESTION,
+    levels: GAME.levels,
+    stats: Array(INITIAL_GAME.GAMES_COUNT).fill(null),
+    currentLevelIndex: 0
+  };
+};
+

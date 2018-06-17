@@ -2,13 +2,13 @@
 import {renderTypeOneGame} from './renderTypeOneGame';
 import {renderTypeTwoGame} from './renderTypeTwoGame';
 import {renderTypeThreeGame} from './renderTypeThreeGame';
-export const renderLevel = (levelType, level) => {
-  if (levelType.type === `1`) {
-    return renderTypeOneGame(level);
-  } else if (level.type === `2`) {
-    return renderTypeTwoGame(level);
-  } else if (level.type === `3`) {
-    return renderTypeThreeGame(level);
+export const renderLevel = (game) => {
+  if (game.type === 1) {
+    return renderTypeTwoGame(game);
+  } else if (game.type === 2) {
+    return renderTypeOneGame(game);
+  } else if (game.type === 3) {
+    return renderTypeThreeGame(game);
   }
   return true;
 };

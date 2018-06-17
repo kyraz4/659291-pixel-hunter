@@ -1,15 +1,15 @@
 // рендерит игру третьего типа
 export const renderTypeThreeGame = (game) => `<div class="game">
-<p class="game__task">${game.description}</p>
+<p class="game__task">${game.title}</p>
 <form class="game__content  game__content--triple">
   <div class="game__option">
-    ${game.ansvers[1]}
+  <img src="${game.urls[1]}" alt="Option 1" width="304" height="455">
   </div>
   <div class="game__option  game__option--selected">
-  ${game.ansvers[2]}
+  <img src="${game.urls[2]}" alt="Option 1" width="304" height="455">
   </div>
   <div class="game__option">
-  ${game.ansvers[3]}
+  <img src="${game.urls[3]}" alt="Option 1" width="304" height="455">
   </div>
 </form>
 <div class="stats">
