@@ -30,38 +30,44 @@ const startGame = () => {
   const headerElement = getElementFromTeamplate();
   const levelElement = getElementFromTeamplate();
   const footerStatistic = getElementFromTeamplate();
-  const putFooterStats = document.querySelector(`#stats`);
-
   gameContainerElement.appendChild(headerElement);
   gameContainerElement.appendChild(levelElement);
-  putFooterStats.appendChild(footerStatistic);
-  let statsObject = createInitialState();
-  const getLevel = () => GAME.levels[initialContent.level];
-  const updateGame = (state, statsObj) => {
-    headerElement.innerHTML = gameHeader(state);
-    levelElement.innerHTML = renderLevel(getLevel(state.level));
-    footerStatistic.innerHTML = fillStats(statsObj.stats);
-  };
 
+  let statsObject = createInitialState();
+  const getLevel = (i) => GAME.levels[i];
+  const updateGame = (state, statsObj, i) => {
+    headerElement.innerHTML = gameHeader(state);
+    levelElement.innerHTML = renderLevel(getLevel(i));
+    const putFooterStats = levelElement.querySelector(`.stats`);
+    footerStatistic.innerHTML = fillStats(statsObj.stats);
+    putFooterStats.appendChild(footerStatistic);
+  };
+  let nextGame = initialContent.level;
   const chooseEventListner = (game) => {
     if (game.type === 2) {
-      return addDelegatedEventListener(`change`, `.game__content--wide`, () => {
-        const firstChoose = document.querySelector(`.game__content [value=photo]:checked`) !== null;
-        const secondtChoose = document.querySelector(`.game__content [value=paint]:checked`) !== null;
-        if (firstChoose || secondtChoose) {
-          const userAnsver = [firstChoose, secondtChoose];
-          if ((userAnsver[1] === game.levels[initialContent.level].ansvers.isCorrect[1]) && (userAnsver[2] === game.levels[initialContent.level].ansvers.isCorrect[2])) {
-            const nextLevel = GAME.levels[initialContent.level + 1];
-            try {
-              game = changeLevel(game, nextLevel);
-            } catch (e) {
-              game = fail(game);
-            }
-            updateGame(game);
-            if (!canContinue(game)) {
-              changeScreen(statsScreen);
-            }
+      return addDelegatedEventListener(`change`, `.game__content`, () => {
+        const firstQuestionChecked = document.querySelector(`.game__content [name=question1]:checked`) !== null;
+        const secondQuestionChecked = document.querySelector(`.game__content [name=question2]:checked`) !== null;
+        if (firstQuestionChecked && secondQuestionChecked) {
+          if (nextGame !== 9) {
+            nextGame++;
+            chooseEventListner(GAME.levels[nextGame]);
+            updateGame(initialContent, statsObject, nextGame);
+            changeScreen(gameContainerElement);
+          } else {
+            changeScreen(statsScreen);
           }
+          // const userAnsver = [firstChoose, secondtChoose];
+          // if ((userAnsver[1] === game.levels[initialContent.level].ansvers.isCorrect[1]) && (userAnsver[2] === game.levels[initialContent.level].ansvers.isCorrect[2])) {
+          //   const nextLevel = GAME.levels[initialContent.level + 1];
+          //   try {
+          //     game = changeLevel(game, nextLevel);
+          //   } catch (e) {
+          //     game = fail(game);
+          //   }
+          //   updateGame(game);
+          //   if (!canContinue(game)) {
+          //     changeScreen(statsScreen);
         }
       });
     } else if (game.type === 1) {
@@ -69,28 +75,47 @@ const startGame = () => {
         const firstChoose = document.querySelector(`.game__content [value=photo]:checked`) !== null;
         const secondtChoose = document.querySelector(`.game__content [value=paint]:checked`) !== null;
         if (firstChoose || secondtChoose) {
-          const userAnsver = [firstChoose, secondtChoose];
-          if ((userAnsver[1] === game.levels[initialContent.level].ansvers.isCorrect[1]) || (userAnsver[2] === game.levels[initialContent.level].ansvers.isCorrect[2])) {
-            const nextLevel = GAME.levels[initialContent.level + 1];
-            try {
-              game = changeLevel(game, nextLevel);
-            } catch (e) {
-              game = fail(game);
-            }
-            updateGame(game);
-            if (!canContinue(game)) {
-              changeScreen(statsScreen);
-            }
+          // const userAnsver = [firstChoose, secondtChoose];
+          // if ((userAnsver[1] === game.answers.isCorrect) || (userAnsver[2] === game.answers.isCorrect)) {
+          if (nextGame !== 9) {
+            nextGame++;
+            chooseEventListner(GAME.levels[nextGame]);
+            updateGame(initialContent, statsObject, nextGame);
+            changeScreen(gameContainerElement);
+          } else {
+            changeScreen(statsScreen);
+          }
+          // try {
+          //   game = changeLevel(game, nextLevel);
+          // } catch (e) {
+          //   game = fail(game);
+          // }
+          // updateGame(initialContent, statsObject);
+          // if (!canContinue(game)) {
+          //   changeScreen(statsScreen);
+          // }
+
+        }
+      });
+    } else if (game.type === 3) {
+      return addDelegatedEventListener(`click`, `.game__content--triple`, () => {
+        const chooseClick = document.querySelectorAll(`.game__option`) !== null;
+        if (chooseClick) {
+          if (nextGame !== 9) {
+            nextGame++;
+            chooseEventListner(GAME.levels[nextGame]);
+            updateGame(initialContent, statsObject, nextGame);
+            changeScreen(gameContainerElement);
+          } else {
+            changeScreen(statsScreen);
           }
         }
       });
     }
-    return 0;
   };
-  chooseEventListner(initialContent);
-  updateGame(initialContent, statsObject);
+  chooseEventListner(GAME.levels[initialContent.level]);
+  updateGame(initialContent, statsObject, initialContent.level);
   changeScreen(gameContainerElement);
-
 };
 
 

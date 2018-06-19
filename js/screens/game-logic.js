@@ -22,6 +22,7 @@ export const fail = (game) => {
   return Object.assign({}, game, {lives});
 };
 
+
 export const createInitialState = () => {
   return {
     lives: INITIAL_GAME.LIVES_COUNT,

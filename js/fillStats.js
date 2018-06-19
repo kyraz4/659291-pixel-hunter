@@ -1,4 +1,3 @@
-// заполняет футер статистикой
 export const fillStats = (stats = []) => {
   for (let i = 0; i < stats.length; i++) {
     if (stats[i] === null) {
