@@ -3,7 +3,7 @@ import changeScreen from '../selectPage';
 import greetingsScreen from './greetings';
 import addDelegatedEventListener from '../addDelegatedEventListener';
 import gameTwoScreen from './game-2';
-
+import GameOneView from '../views/game-1-view';
 
 // const gameOneScreenPrevious = (state) => `<header class="header">
 // <div class="header__back">
@@ -68,4 +68,10 @@ addDelegatedEventListener(`change`, `.game__content`, () => {
     changeScreen(gameTwoScreen);
   }
 });
+
+const createGameOneScreen = (state) => {
+  const gameOneView = new GameOneView(state);
+  gameOneView.onAnswer = (answer) => {
+  }
+};
 // export default gameOneScreen;

@@ -32,7 +32,7 @@ export const updateGame = (state) => {
 
 let initialContent;
 
-const chooseEventListner = (game) => {
+export const chooseEventListner = (game) => {
   if (game.type === LEVELS_TYPES.DOUBLE) {
     return addDelegatedEventListener(`change`, `.game__content`, () => {
       const firstQuestionChecked = document.querySelector(`.game__content [name=question1]:checked`) !== null;
