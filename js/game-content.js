@@ -1,7 +1,7 @@
 const LEVELS_TYPES = {
-  'SINGLE': 1,
-  'DOUBLE': 2,
-  'TRIPLE': 3
+  SINGLE: 1,
+  DOUBLE: 2,
+  TRIPLE: 3
 };
 
 const ANSWER_TYPES = {
@@ -160,22 +160,3 @@ export const GAME = {
 };
 
 
-// config.js
-
-export default {
-  GAMES_COUNT: 10,
-  LIVES_COUNT: 3,
-  SECONDS_COUNT_BY_QUESTION: 30
-};
-
-// game-logic.js
-
-// export const createInitialState = () => {
-//     return {
-//         lives: CONFIG.LIVES_COUNT,
-//         time: CONFIG.SECONDS_COUNT_BY_QUESTION,
-//         levels: GAME.levels,
-//         stats: Array(CONFGI.GAMES_COUNT).fill(null)
-//         currentLevelIndex: 0
-//     }
-// }
