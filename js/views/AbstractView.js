@@ -4,18 +4,19 @@ export default class AbstractView {
     throw new Error(`Abstract method must be changed`);
   }
 
+  get element() {
+    if (!this._element) {
+      this._element = this.render();
+      this.bind(this._element);
+    }
+
+    return this._element;
+  }
+
   render() {
     return getElementFromTeamplate(this.teamplate);
   }
 
   bind() {
-  }
-
-  get element() {
-    if (!this.element) {
-      this._element = this.render();
-      this.bind(this._element);
-    }
-    return this._element;
   }
 }

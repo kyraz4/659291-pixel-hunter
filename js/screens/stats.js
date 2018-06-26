@@ -1,5 +1,16 @@
 import {getElementFromTeamplate} from '../elemFromTemplate';
-const statsScreen = getElementFromTeamplate(`<header class="header">
+import {calculatePoints} from '../calculate-points';
+import {fillStatsForStatsScreen} from '../fillStats';
+const winString = (state) => {
+  if (state.lives !== 0) {
+    return `<h1>Победа!</h1>`;
+  }
+  return 0;
+};
+
+
+const string = (state) => {
+  return `<header class="header">
 <div class="header__back">
   <button class="back">
     <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
@@ -8,26 +19,17 @@ const statsScreen = getElementFromTeamplate(`<header class="header">
 </div>
 </header>
 <div class="result">
-<h1>Победа!</h1>
+${winString(state)}
 <table class="result__table">
   <tr>
     <td class="result__number">1.</td>
     <td colspan="2">
-      <ul class="stats">
-        <li class="stats__result stats__result--wrong"></li>
-        <li class="stats__result stats__result--slow"></li>
-        <li class="stats__result stats__result--fast"></li>
-        <li class="stats__result stats__result--correct"></li>
-        <li class="stats__result stats__result--wrong"></li>
-        <li class="stats__result stats__result--unknown"></li>
-        <li class="stats__result stats__result--slow"></li>
-        <li class="stats__result stats__result--unknown"></li>
-        <li class="stats__result stats__result--fast"></li>
-        <li class="stats__result stats__result--unknown"></li>
-      </ul>
+    <ul class="stats">
+    ${fillStatsForStatsScreen(state.stats).join(``)}
+    </ul>
     </td>
     <td class="result__points">×&nbsp;100</td>
-    <td class="result__total">900</td>
+    <td class="result__total"></td>
   </tr>
   <tr>
     <td></td>
@@ -51,7 +53,7 @@ const statsScreen = getElementFromTeamplate(`<header class="header">
     <td class="result__total">-100</td>
   </tr>
   <tr>
-    <td colspan="5" class="result__total  result__total--final">950</td>
+    <td colspan="5" class="result__total  result__total--final">${calculatePoints(state, state.lives, state.GAMES_COUNT)}</td>
   </tr>
 </table>
 <table class="result__table">
@@ -106,6 +108,10 @@ const statsScreen = getElementFromTeamplate(`<header class="header">
     <td colspan="5" class="result__total  result__total--final">950</td>
   </tr>
 </table>
-</div>`);
+</div>`;
+};
+
+const statsScreen = (state) => getElementFromTeamplate(string(state));
+
 export default statsScreen;
 

@@ -1,6 +1,8 @@
 import AbstractView from './AbstractView';
-import {addDelegatedEventListener, getElementFromTeamplate} from '../elemFromTemplate';
-export default class gameOneView extends AbstractView {
+import addDelegatedEventListener from '../addDelegatedEventListener';
+
+const CONSTANT_NULL = 0;
+export default class GameOneView extends AbstractView {
   constructor(level) {
     super();
     this.level = level;
@@ -42,32 +44,14 @@ export default class gameOneView extends AbstractView {
 
 
   bind() {
-    addDelegatedEventListener(`change`, `.game__content--wide`, () => {
-      const firstChoose = document.querySelector(`.game__content [value=photo]:checked`) !== null;
-      const secondtChoose = document.querySelector(`.game__content [value=paint]:checked`) !== null;
+    addDelegatedEventListener(`change`, `.game__content--wide`, (evt) => {
+      const firstChoose = this.element.querySelector(`.game__content [value=photo]:checked`) !== null;
+      const secondtChoose = this.element.querySelector(`.game__content [value=paint]:checked`) !== null;
+      const userAnsver = evt.path[CONSTANT_NULL].value;
       if (firstChoose || secondtChoose) {
-        this.onAnswer();
-        // if (this.level.level !== 9) {
-        //   // this.level.stats[this.level.level] = `CORRECT`;
-        //   // this.level.level++;
-        //   // chooseEventListner(GAME.levels[this.level.level]);
-        //   // updateGame(this.level);
-        //   // changeScreen(gameContainerElement);
-        //   console.log(this.level);
-        // } else {
-        //   changeScreen(statsScreen);
-        // }
+        this.onAnswer(userAnsver, this.level);
+        console.log(userAnsver);
       }
     });
-  }
-
-  render() {
-    return getElementFromTeamplate(this.level.teamplate());
-  }
-
-  get element() {
-    this._element = this.render();
-    this.bind(this._element);
-    return this._element;
   }
 }

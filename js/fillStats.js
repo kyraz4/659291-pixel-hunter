@@ -38,3 +38,20 @@ export const fillStats = (stats = []) => {
   }
   return statsDom;
 };
+
+export const fillStatsForStatsScreen = (stats) => {
+  const answerArray = Array(stats.length);
+  for (let i = 0; i < stats.length; i++) {
+    if (stats[i] === ANSVERS_TYPES.CORRECT) {
+      answerArray[i] = `<li class="stats__result stats__result--correct"></li>`;
+    } else if (stats[i] === ANSVERS_TYPES.FAST) {
+      answerArray[i] = `<li class="stats__result stats__result--fast"></li>`;
+    } else if (stats[i] === ANSVERS_TYPES.SLOW) {
+      answerArray[i] = `<li class="stats__result stats__result--slow"></li>`;
+    } else if (stats[i] === ANSVERS_TYPES.WRONG) {
+      answerArray[i] = `<li class="stats__result stats__result--wrong"></li>`;
+    } else if (stats[i] === ANSVERS_TYPES.UNKNOWN) {
+      answerArray[i] = `<li class="stats__result stats__result--unknown"></li>`;
+    }
+  } return answerArray;
+};

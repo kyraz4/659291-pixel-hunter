@@ -16,13 +16,12 @@ export const GAME = {
       title: `Угадай, фото или рисунок?`,
       urls: `https://k42.kn3.net/CF42609C8.jpg`,
 
-      answers: [
+      answers:
         {
-          answerImageUrl: `https://k42.kn3.net/CF42609C8.jpg`,
+          answerInputTrueValue: `photo`,
           answerType: ANSWER_TYPES.PHOTO,
           isCorrect: true
         }
-      ]
     },
     {
       type: LEVELS_TYPES.TRIPLE,
@@ -32,13 +31,12 @@ export const GAME = {
         `https://k32.kn3.net/5C7060EC5.jpg`,
         `https://i.imgur.com/DiHM5Zb.jpg`
       ],
-      answers: [
+      answers:
         {
           answerImageUrl: `https://k32.kn3.net/5C7060EC5.jpg`,
           answerType: ANSWER_TYPES.PAINT,
           isCorrect: true
         }
-      ]
     },
     {
       type: LEVELS_TYPES.SINGLE,
@@ -46,13 +44,12 @@ export const GAME = {
       urls: [
         `https://k32.kn3.net/5C7060EC5.jpg`
       ],
-      answers: [
+      answers:
         {
-          answerImageUrl: `https://k32.kn3.net/5C7060EC5.jpg`,
+          answerInputTrueValue: `paint`,
           answerType: ANSWER_TYPES.PAINT,
           isCorrect: true
         }
-      ]
     },
     {
       type: LEVELS_TYPES.DOUBLE,
@@ -61,13 +58,12 @@ export const GAME = {
         `https://k42.kn3.net/D2F0370D6.jpg`,
         `http://i.imgur.com/DKR1HtB.jpg`
       ],
-      answers: [
+      answers:
         {
-          answerImageUrl: ``,
+          answerInputTrueValue: [`photo`, `paint`],
           answerType: [ANSWER_TYPES.PHOTO, ANSWER_TYPES.PAINT],
           isCorrect: [true, false]
         }
-      ]
     },
     {
       type: LEVELS_TYPES.SINGLE,
@@ -75,13 +71,12 @@ export const GAME = {
       urls: [
         `http://i.imgur.com/1KegWPz.jpg`
       ],
-      answers: [
+      answers:
         {
-          answerImageUrl: `http://i.imgur.com/1KegWPz.jpg`,
+          answerInputTrueValue: `photo`,
           answerType: ANSWER_TYPES.PHOTO,
           isCorrect: true
         }
-      ]
     },
     {
       type: LEVELS_TYPES.DOUBLE,
@@ -90,13 +85,12 @@ export const GAME = {
         `https://k42.kn3.net/D2F0370D6.jpg`,
         `http://i.imgur.com/DKR1HtB.jpg`
       ],
-      answers: [
+      answers:
         {
           answerImageUrl: ``,
           answerType: [ANSWER_TYPES.PHOTO, ANSWER_TYPES.PAINT],
           isCorrect: true
         }
-      ]
     },
     {
       type: LEVELS_TYPES.DOUBLE,
@@ -105,13 +99,12 @@ export const GAME = {
         `https://k42.kn3.net/D2F0370D6.jpg`,
         `http://i.imgur.com/DKR1HtB.jpg`
       ],
-      answers: [
+      answers:
         {
           answerImageUrl: ``,
           answerType: [ANSWER_TYPES.PHOTO, ANSWER_TYPES.PAINT],
           isCorrect: true
         }
-      ]
     },
     {
       type: LEVELS_TYPES.SINGLE,
@@ -119,13 +112,12 @@ export const GAME = {
       urls: [
         `http://i.imgur.com/1KegWPz.jpg`
       ],
-      answers: [
+      answers:
         {
-          answerImageUrl: `http://i.imgur.com/1KegWPz.jpg`,
+          answerInputTrueValue: `photo`,
           answerType: ANSWER_TYPES.PHOTO,
           isCorrect: true
         }
-      ]
     },
     {
       type: LEVELS_TYPES.DOUBLE,
@@ -134,13 +126,12 @@ export const GAME = {
         `https://k42.kn3.net/D2F0370D6.jpg`,
         `http://i.imgur.com/DKR1HtB.jpg`
       ],
-      answers: [
+      answers:
         {
           answerImageUrl: ``,
           answerType: [ANSWER_TYPES.PHOTO, ANSWER_TYPES.PAINT],
           isCorrect: true
         }
-      ]
     },
     {
       type: LEVELS_TYPES.SINGLE,
@@ -148,13 +139,12 @@ export const GAME = {
       urls: [
         `http://i.imgur.com/1KegWPz.jpg`
       ],
-      answers: [
+      answers:
         {
           answerImageUrl: `http://i.imgur.com/1KegWPz.jpg`,
           answerType: ANSWER_TYPES.PHOTO,
           isCorrect: true
         }
-      ]
     }
   ]
 };

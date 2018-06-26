@@ -1,6 +1,6 @@
 import AbstractView from './AbstractView';
-import {addDelegatedEventListener, getElementFromTeamplate} from '../elemFromTemplate';
-export default class gameTwoView extends AbstractView {
+import addDelegatedEventListener from '../addDelegatedEventListener';
+export default class GameTwoView extends AbstractView {
   constructor(level) {
     super();
     this.level = level;
@@ -32,31 +32,11 @@ export default class gameTwoView extends AbstractView {
 
   bind() {
     addDelegatedEventListener(`change`, `.game__content`, () => {
-      const firstQuestionChecked = document.querySelector(`.game__content [name=question1]:checked`) !== null;
-      const secondQuestionChecked = document.querySelector(`.game__content [name=question2]:checked`) !== null;
+      const firstQuestionChecked = this.element.querySelector(`.game__content [name=question1]:checked`) !== null;
+      const secondQuestionChecked = this.element.querySelector(`.game__content [name=question2]:checked`) !== null;
       if (firstQuestionChecked && secondQuestionChecked) {
         this.onAnswer();
-        // if (initialContent.level !== 9) {
-        //   initialContent.stats[initialContent.level] = `CORRECT`;
-        //   initialContent.level++;
-        //   chooseEventListner(GAME.levels[initialContent.level]);
-        //   updateGame(initialContent);
-        //   changeScreen(gameContainerElement);
-        //   console.log(initialContent);
-        // } else {
-        //   changeScreen(statsScreen);
-        // }
       }
     });
-  }
-
-  render() {
-    return getElementFromTeamplate(this.level.teamplate());
-  }
-
-  get element() {
-    this._element = this.render();
-    this.bind(this._element);
-    return this._element;
   }
 }

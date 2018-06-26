@@ -10,7 +10,7 @@ export const changeLevel = (game, level) => {
   return Object.assign({}, game, {level});
 };
 
-export const canContinue = (game) => game.lives - 1 > 0;
+export const canContinue = (game) => game.lives !== 0;
 
 export const fail = (game) => {
   if (!canContinue(game)) {
@@ -23,13 +23,13 @@ export const fail = (game) => {
 };
 
 
-export const createInitialState = () => {
-  return {
-    lives: INITIAL_GAME.LIVES_COUNT,
-    time: INITIAL_GAME.SECONDS_COUNT_BY_QUESTION,
-    levels: GAME.levels,
-    stats: Array(INITIAL_GAME.GAMES_COUNT).fill(null),
-    currentLevelIndex: 0
-  };
-};
+// export const createInitialState = () => {
+//   return {
+//     lives: INITIAL_GAME.LIVES_COUNT,
+//     time: INITIAL_GAME.SECONDS_COUNT_BY_QUESTION,
+//     levels: GAME.levels,
+//     stats: Array(INITIAL_GAME.GAMES_COUNT).fill(null),
+//     currentLevelIndex: 0
+//   };
+// };
 

@@ -1,6 +1,7 @@
 import AbstractView from './AbstractView';
-import {addDelegatedEventListener, getElementFromTeamplate} from '../elemFromTemplate';
-export default class gameOneView extends AbstractView {
+import addDelegatedEventListener from '../addDelegatedEventListener';
+const CONSTANT_NULL = 0;
+export default class GameThreeView extends AbstractView {
   constructor(level) {
     super();
     this.level = level;
@@ -25,36 +26,17 @@ export default class gameOneView extends AbstractView {
     </div>`;
   }
 
-  onAnswer() {}
+  onAnswer(userAnswer, level) {}
 
 
   bind() {
-    addDelegatedEventListener(`click`, `.game__content--triple`, () => {
-      const chooseClick = document.querySelectorAll(`.game__option`) !== null;
+    addDelegatedEventListener(`click`, `.game__content--triple`, (evt) => {
+      const chooseClick = this.element.querySelectorAll(`.game__option`) !== null;
+      const userAnswer = evt.path[CONSTANT_NULL].children[CONSTANT_NULL].src;
       if (chooseClick) {
-        this.onAnswer();
-        // if (initialContent.level !== 9) {
-        //   initialContent.stats[initialContent.level] = `CORRECT`;
-        //   initialContent.level++;
-        //   chooseEventListner(GAME.levels[initialContent.level]);
-        //   updateGame(initialContent);
-        //   changeScreen(gameContainerElement);
-        //   console.log(initialContent);
-        // } else {
-        //   changeScreen(statsScreen);
-        // }
+        this.onAnswer(userAnswer, this.level);
       }
     });
-  }
-
-  render() {
-    return getElementFromTeamplate(this.level.teamplate());
-  }
-
-  get element() {
-    this._element = this.render();
-    this.bind(this._element);
-    return this._element;
   }
 }
 
