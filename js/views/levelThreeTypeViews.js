@@ -26,12 +26,12 @@ export default class GameThreeView extends AbstractView {
     </div>`;
   }
 
-  onAnswer(userAnswer, level) {}
+  onAnswer() {}
 
 
   bind() {
     addDelegatedEventListener(`click`, `.game__content--triple`, (evt) => {
-      const chooseClick = this.element.querySelectorAll(`.game__option`) !== null;
+      const chooseClick = document.querySelectorAll(`.game__option`) !== null;
       const userAnswer = evt.path[CONSTANT_NULL].children[CONSTANT_NULL].src;
       if (chooseClick) {
         this.onAnswer(userAnswer, this.level);

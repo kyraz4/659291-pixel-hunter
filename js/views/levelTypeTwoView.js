@@ -1,8 +1,7 @@
 import AbstractView from './AbstractView';
 import addDelegatedEventListener from '../addDelegatedEventListener';
 
-const CONSTANT_NULL = 0;
-export default class GameOneView extends AbstractView {
+export default class GameTwoView extends AbstractView {
   constructor(level) {
     super();
     this.level = level;
@@ -44,13 +43,11 @@ export default class GameOneView extends AbstractView {
 
 
   bind() {
-    addDelegatedEventListener(`change`, `.game__content--wide`, (evt) => {
-      const firstChoose = this.element.querySelector(`.game__content [value=photo]:checked`) !== null;
-      const secondtChoose = this.element.querySelector(`.game__content [value=paint]:checked`) !== null;
-      const userAnsver = evt.path[CONSTANT_NULL].value;
-      if (firstChoose || secondtChoose) {
-        this.onAnswer(userAnsver, this.level);
-        console.log(userAnsver);
+    addDelegatedEventListener(`change`, `.game__content`, () => {
+      const firstQuestionChecked = document.querySelector(`.game__content [name=question1]:checked`) !== null;
+      const secondQuestionChecked = document.querySelector(`.game__content [name=question2]:checked`) !== null;
+      if (firstQuestionChecked && secondQuestionChecked) {
+        this.onAnswer();
       }
     });
   }

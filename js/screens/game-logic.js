@@ -10,7 +10,7 @@ export const changeLevel = (game, level) => {
   return Object.assign({}, game, {level});
 };
 
-export const canContinue = (game) => game.lives !== 0;
+export const canContinue = (game) => game.lives - 1 > 0;
 
 export const fail = (game) => {
   if (!canContinue(game)) {
@@ -21,6 +21,8 @@ export const fail = (game) => {
 
   return Object.assign({}, game, {lives});
 };
+
+export const endOfGame = (game) => game.level < 9;
 
 
 // export const createInitialState = () => {

@@ -4,6 +4,14 @@ export default class AbstractView {
     throw new Error(`Abstract method must be changed`);
   }
 
+
+  render() {
+    return getElementFromTeamplate(this.teamplate);
+  }
+
+  bind() {
+  }
+
   get element() {
     if (!this._element) {
       this._element = this.render();
@@ -11,12 +19,5 @@ export default class AbstractView {
     }
 
     return this._element;
-  }
-
-  render() {
-    return getElementFromTeamplate(this.teamplate);
-  }
-
-  bind() {
   }
 }
