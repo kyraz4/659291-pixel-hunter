@@ -1,120 +1,110 @@
-// модуль в котором всё склеивается возвращает функцию startGame() (она вызовется после странички rules в обработчике событий)
-import {changeLevel, canContinue, fail} from './screens/game-logic';
 import {INITIAL_GAME} from './config';
 import changeScreen from './selectPage';
 import {getElementFromTeamplate} from './elemFromTemplate';
-import addDelegatedEventListener from './addDelegatedEventListener';
-// import GAME from './screens/data-game';
-import {gameHeader} from './screens/renderHeader';
-import {renderLevel} from './screens/renderLevel';
-import statsScreen from './screens/stats';
 import {fillStats} from './fillStats';
 import {GAME} from './game-content';
+import GameHeader from './views/levelHeaderViews';
+import {renderLevelOfType} from './screens/renderLevel.js';
+import {canContinue, endOfGame} from './screens/game-logic';
+import statsScreen from './screens/stats';
 
-const createInitialState = () => {
-  return {
-    lives: INITIAL_GAME.lives,
-    time: INITIAL_GAME.time,
-    levels: GAME.levels,
-    stats: Array(INITIAL_GAME.GAMES_COUNT).fill(null),
-    currentLevelIndex: 0
-  };
+const LEVELS_TYPES = {
+  SINGLE: 1,
+  DOUBLE: 2,
+  TRIPLE: 3
+};
+
+const gameContainerElement = document.createElement(`div`);
+const headerElement = getElementFromTeamplate();
+const levelElement = getElementFromTeamplate();
+gameContainerElement.appendChild(headerElement);
+gameContainerElement.appendChild(levelElement);
+
+export const getLevel = (i) => GAME.levels[i];
+
+export const updateGame = (state) => {
+  updateView(headerElement, new GameHeader(state));
+  const levelView = renderLevelOfType(getLevel(state.level));
+  updateView(levelElement, levelView);
+  let putFooterStats = levelElement.querySelector(`.stats`);
+  putFooterStats.appendChild(fillStats(state.stats));
+  if (getLevel(state.level).type === LEVELS_TYPES.SINGLE) {
+    levelView.onAnswer = answerHendlerTypeOne;
+  } else if (getLevel(state.level).type === LEVELS_TYPES.DOUBLE) {
+    levelView.onAnswer = answerHendlerTypeTwo;
+  } else if (getLevel(state.level).type === LEVELS_TYPES.TRIPLE) {
+    levelView.onAnswer = answerHendlerTypeThree;
+  }
+
+};
+
+let initialContent;
+
+const updateView = (container, view) => {
+  container.innerHTML = ``;
+  container.appendChild(view.element);
 };
 
 
-let initialContent;
+const answerHendlerTypeOne = (answer) => {
+  const level = getLevel(initialContent.level);
+  if (!endOfGame(initialContent)) {
+    if (answer === level.answers.answerInputTrueValue) {
+      initialContent.stats[initialContent.level] = `CORRECT`;
+    } else if (answer !== level.answers.answerInputTrueValue) {
+      initialContent.stats[initialContent.level] = `WRONG`;
+      initialContent.lives--;
+    }
+    changeScreen(statsScreen(initialContent));
+  } else
+  if (canContinue(initialContent)) {
+    if (answer === level.answers.answerInputTrueValue) {
+      initialContent.stats[initialContent.level] = `CORRECT`;
+      continueGame();
+    } else if (answer !== level.answers.answerInputTrueValue) {
+      initialContent.stats[initialContent.level] = `WRONG`;
+      initialContent.lives--;
+      continueGame();
+    }
+  } else if (!canContinue(initialContent)) {
+    initialContent.stats[initialContent.level] = `WRONG`;
+    changeScreen(statsScreen(initialContent));
+  }
+
+};
+
+const answerHendlerTypeTwo = () => {
+  initialContent.stats[initialContent.level] = `CORRECT`;
+  continueGame();
+};
+
+const answerHendlerTypeThree = (answer) => {
+  const level = getLevel(initialContent.level);
+  if (canContinue(initialContent)) {
+    if (answer === level.answers.answerImageUrl) {
+      initialContent.stats[initialContent.level] = `CORRECT`;
+      continueGame();
+    } else if (answer !== level.answers.answerImageUrl) {
+      initialContent.stats[initialContent.level] = `WRONG`;
+      initialContent.lives--;
+      continueGame();
+    }
+  } else if (!canContinue(initialContent)) {
+    initialContent.stats[initialContent.level] = `WRONG`;
+    changeScreen(statsScreen(initialContent));
+  }
+};
+
+const continueGame = () => {
+  initialContent.level++;
+  updateGame(initialContent);
+  changeScreen(gameContainerElement);
+};
+
 const startGame = () => {
   initialContent = Object.assign({}, INITIAL_GAME);
 
-  const gameContainerElement = getElementFromTeamplate();
-  const headerElement = getElementFromTeamplate();
-  const levelElement = getElementFromTeamplate();
-  const footerStatistic = getElementFromTeamplate();
-  gameContainerElement.appendChild(headerElement);
-  gameContainerElement.appendChild(levelElement);
-
-  let statsObject = createInitialState();
-  const getLevel = (i) => GAME.levels[i];
-  const updateGame = (state, statsObj, i) => {
-    headerElement.innerHTML = gameHeader(state);
-    levelElement.innerHTML = renderLevel(getLevel(i));
-    const putFooterStats = levelElement.querySelector(`.stats`);
-    footerStatistic.innerHTML = fillStats(statsObj.stats);
-    putFooterStats.appendChild(footerStatistic);
-  };
-  let nextGame = initialContent.level;
-  const chooseEventListner = (game) => {
-    if (game.type === 2) {
-      return addDelegatedEventListener(`change`, `.game__content`, () => {
-        const firstQuestionChecked = document.querySelector(`.game__content [name=question1]:checked`) !== null;
-        const secondQuestionChecked = document.querySelector(`.game__content [name=question2]:checked`) !== null;
-        if (firstQuestionChecked && secondQuestionChecked) {
-          if (nextGame !== 9) {
-            nextGame++;
-            chooseEventListner(GAME.levels[nextGame]);
-            updateGame(initialContent, statsObject, nextGame);
-            changeScreen(gameContainerElement);
-          } else {
-            changeScreen(statsScreen);
-          }
-          // const userAnsver = [firstChoose, secondtChoose];
-          // if ((userAnsver[1] === game.levels[initialContent.level].ansvers.isCorrect[1]) && (userAnsver[2] === game.levels[initialContent.level].ansvers.isCorrect[2])) {
-          //   const nextLevel = GAME.levels[initialContent.level + 1];
-          //   try {
-          //     game = changeLevel(game, nextLevel);
-          //   } catch (e) {
-          //     game = fail(game);
-          //   }
-          //   updateGame(game);
-          //   if (!canContinue(game)) {
-          //     changeScreen(statsScreen);
-        }
-      });
-    } else if (game.type === 1) {
-      return addDelegatedEventListener(`change`, `.game__content--wide`, () => {
-        const firstChoose = document.querySelector(`.game__content [value=photo]:checked`) !== null;
-        const secondtChoose = document.querySelector(`.game__content [value=paint]:checked`) !== null;
-        if (firstChoose || secondtChoose) {
-          // const userAnsver = [firstChoose, secondtChoose];
-          // if ((userAnsver[1] === game.answers.isCorrect) || (userAnsver[2] === game.answers.isCorrect)) {
-          if (nextGame !== 9) {
-            nextGame++;
-            chooseEventListner(GAME.levels[nextGame]);
-            updateGame(initialContent, statsObject, nextGame);
-            changeScreen(gameContainerElement);
-          } else {
-            changeScreen(statsScreen);
-          }
-          // try {
-          //   game = changeLevel(game, nextLevel);
-          // } catch (e) {
-          //   game = fail(game);
-          // }
-          // updateGame(initialContent, statsObject);
-          // if (!canContinue(game)) {
-          //   changeScreen(statsScreen);
-          // }
-
-        }
-      });
-    } else if (game.type === 3) {
-      return addDelegatedEventListener(`click`, `.game__content--triple`, () => {
-        const chooseClick = document.querySelectorAll(`.game__option`) !== null;
-        if (chooseClick) {
-          if (nextGame !== 9) {
-            nextGame++;
-            chooseEventListner(GAME.levels[nextGame]);
-            updateGame(initialContent, statsObject, nextGame);
-            changeScreen(gameContainerElement);
-          } else {
-            changeScreen(statsScreen);
-          }
-        }
-      });
-    }
-  };
-  chooseEventListner(GAME.levels[initialContent.level]);
-  updateGame(initialContent, statsObject, initialContent.level);
+  updateGame(initialContent);
   changeScreen(gameContainerElement);
 };
 

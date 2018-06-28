@@ -1,4 +1,4 @@
-import introScreen from './screens/intro';
+import createIntroFragment from './screens/intro';
 import changeScreen from './selectPage';
-changeScreen(introScreen);
+changeScreen(createIntroFragment());
 
