@@ -44,10 +44,11 @@ export default class GameTwoView extends AbstractView {
 
   bind() {
     addDelegatedEventListener(`change`, `.game__content`, () => {
-      const firstQuestionChecked = document.querySelector(`.game__content [name=question1]:checked`) !== null;
-      const secondQuestionChecked = document.querySelector(`.game__content [name=question2]:checked`) !== null;
+      const firstQuestionChecked = document.querySelector(`.game__content [name=question1]:checked`);
+      const secondQuestionChecked = document.querySelector(`.game__content [name=question2]:checked`);
       if (firstQuestionChecked && secondQuestionChecked) {
-        this.onAnswer();
+        const userAnswer = [firstQuestionChecked, secondQuestionChecked];
+        this.onAnswer(userAnswer);
       }
     });
   }

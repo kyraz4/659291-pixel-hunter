@@ -87,7 +87,7 @@ export const GAME = {
       ],
       answers:
         {
-          answerImageUrl: ``,
+          answerInputTrueValue: [`photo`, `paint`],
           answerType: [ANSWER_TYPES.PHOTO, ANSWER_TYPES.PAINT],
           isCorrect: true
         }
@@ -101,6 +101,7 @@ export const GAME = {
       ],
       answers:
         {
+          answerInputTrueValue: [`photo`, `paint`],
           answerImageUrl: ``,
           answerType: [ANSWER_TYPES.PHOTO, ANSWER_TYPES.PAINT],
           isCorrect: true
@@ -128,6 +129,7 @@ export const GAME = {
       ],
       answers:
         {
+          answerInputTrueValue: [`photo`, `paint`],
           answerImageUrl: ``,
           answerType: [ANSWER_TYPES.PHOTO, ANSWER_TYPES.PAINT],
           isCorrect: true

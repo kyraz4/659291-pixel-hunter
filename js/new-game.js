@@ -7,11 +7,38 @@ import GameHeader from './views/levelHeaderViews';
 import {renderLevelOfType} from './screens/renderLevel.js';
 import {canContinue, endOfGame} from './screens/game-logic';
 import statsScreen from './screens/stats';
+import {makeTimer} from './make-timer';
+
+const ONE = 0;
+const TWO = 1;
 
 const LEVELS_TYPES = {
   SINGLE: 1,
   DOUBLE: 2,
   TRIPLE: 3
+};
+let initialContent;
+const ONE_SECOND = 1000;
+initialContent = Object.assign({}, INITIAL_GAME);
+const newTimer = makeTimer(initialContent.time);
+newTimer.onTimeClick = (remainingTime) => console.log(remainingTime);
+
+// const tick = () => {
+//   initialContent = Object.assign({}, initialContent, {time: initialContent.time - 1});
+//   updateHeader(initialContent);
+//   console.log
+// };
+
+const startTimer = () => {
+  setInterval(() => newTimer.tick(), ONE_SECOND);
+};
+
+const stopTimer = () => {
+  clearTimeout(newTimer);
+};
+
+const updateHeader = (state) => {
+  updateView(headerElement, new GameHeader(state));
 };
 
 const gameContainerElement = document.createElement(`div`);
@@ -37,9 +64,6 @@ export const updateGame = (state) => {
   }
 
 };
-
-let initialContent;
-
 const updateView = (container, view) => {
   container.innerHTML = ``;
   container.appendChild(view.element);
@@ -73,9 +97,16 @@ const answerHendlerTypeOne = (answer) => {
 
 };
 
-const answerHendlerTypeTwo = () => {
-  initialContent.stats[initialContent.level] = `CORRECT`;
-  continueGame();
+const answerHendlerTypeTwo = (answer) => {
+  const level = getLevel(initialContent.level);
+  if ((answer[ONE].value === level.answers.answerInputTrueValue[ONE]) && (answer[TWO].value === level.answers.answerInputTrueValue[TWO])) {
+    initialContent.stats[initialContent.level] = `CORRECT`;
+    continueGame();
+  } else {
+    initialContent.stats[initialContent.level] = `WRONG`;
+    initialContent.lives--;
+    continueGame();
+  }
 };
 
 const answerHendlerTypeThree = (answer) => {
@@ -106,6 +137,7 @@ const startGame = () => {
 
   updateGame(initialContent);
   changeScreen(gameContainerElement);
+// startTimer();
 };
 
 

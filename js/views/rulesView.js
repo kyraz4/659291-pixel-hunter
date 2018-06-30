@@ -39,4 +39,9 @@ export default class GameRules extends AbstractView {
 
     addDelegatedEventListener(`submit`, `.rules__form`, this.OnRulesFormClick);
   }
+
+  playerName() {
+    const name = document.querySelector(`.rules__input`);
+    return name.value;
+  }
 }
