@@ -1,4 +1,5 @@
 import GameRules from './views/rulesView';
+import startGame from './new-game';
 import IntroScreen from './IntroScreen';
 import changeScreen from './selectPage.js';
 import Application from './Application';
@@ -11,8 +12,8 @@ export default class RulesScreen {
 
     this.content.OnRulesFormClick = () => {
       this.userName = this.content.playerName();
-      console.log (Application.showGame(this.userName));
       Application.showGame(this.userName);
+      // startGame();
     };
     this.content.OnHeaderBackClick = () => {
       this.nextLevel = new IntroScreen();

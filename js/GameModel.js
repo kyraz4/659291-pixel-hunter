@@ -6,7 +6,8 @@ import {canContinue} from './screens/game-logic';
 const getLevel = (i) => GAME.levels[i];
 
 export default class GameModel {
-  constructor(playerName) {
+  constructor(data, playerName) {
+    this.data = data;
     this.playerName = playerName;
     this.restart();
   }

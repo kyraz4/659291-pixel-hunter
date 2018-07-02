@@ -8,6 +8,12 @@ import {renderLevelOfType} from './screens/renderLevel.js';
 import {canContinue, endOfGame} from './screens/game-logic';
 import statsScreen from './screens/stats';
 
+const LEVELS_TYPES = {
+  SINGLE: 1,
+  DOUBLE: 2,
+  TRIPLE: 3
+};
+
 export const getLevel = (i) => GAME.levels[i];
 
 export default class GameScreen {
@@ -16,11 +22,20 @@ export default class GameScreen {
     this.header = new GameHeader(this.model._state);
     this.content = renderLevelOfType(getLevel(this.model._state.level));
 
+    if (getLevel(this.model._state.level).type === LEVELS_TYPES.SINGLE) {
+
+      this.content.onAnswer = this.answerHeandlerTypeOne;
+    } else if (getLevel(this.model._state.level).type === LEVELS_TYPES.DOUBLE) {
+      this.content.onAnswer = answerHendlerTypeTwo;
+    } else if (getLevel(this.model._state.level).type === LEVELS_TYPES.TRIPLE) {
+      this.content.onAnswer = answerHendlerTypeThree;
+    }
+
     this.root = document.createElement(`div`);
     this.root.appendChild(this.header.element);
     this.root.appendChild(this.content.element);
-    let putFooterStats = this.content.querySelector(`.stats`);
-    putFooterStats.appendChild(fillStats(this.model._state.stats));
+    // let putFooterStats = this.content.querySelector(`.stats`);
+    // putFooterStats.appendChild(fillStats(this.model._state.stats));
 
     this._interval = null;
   }
@@ -31,11 +46,40 @@ export default class GameScreen {
 
   startGame() {
     this.changeLevel();
-
   }
 
-  onAnswer() {
-
+  answerHeandlerTypeOne(answer) {
+   
+    const level = getLevel(this.model._state.level);
+    console.log(level.answers.answerInputTrueValue);
+    if (!endOfGame(this.model._state)) {
+      if (answer === level.answers.answerInputTrueValue) {
+        this.model._state.stats[this.model._state.level] = `CORRECT`;
+      } else if (answer !== level.answers.answerInputTrueValue) {
+        this.model._state.stats[this.model._state.level] = `WRONG`;
+        this.model._state.lives--;
+        this.model.nextLevel();
+        this.startGame();
+      }
+      changeScreen(statsScreen(this.model._state));
+    } else
+    if (canContinue(this.model._state)) {
+      if (answer === level.answers.answerInputTrueValue) {
+        this.model._state.stats[this.model._state.level] = `CORRECT`;
+        this.model.nextLevel();
+        this.startGame();
+        // startTimer();
+      } else if (answer !== level.answers.answerInputTrueValue) {
+        this.model._state.stats[this.model._state.level] = `WRONG`;
+        this.model._state.lives--;
+        this.model.nextLevel();
+        this.startGame();
+        // startTimer();
+      }
+    } else if (!canContinue(this.model._state)) {
+      this.model._state.stats[this.model._state.level] = `WRONG`;
+      changeScreen(statsScreen(this.model._state));
+    }
   }
 
   restart(continueGame) {

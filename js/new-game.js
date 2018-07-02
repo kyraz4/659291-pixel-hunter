@@ -18,39 +18,58 @@ const LEVELS_TYPES = {
   TRIPLE: 3
 };
 let initialContent;
+let timer;
 const ONE_SECOND = 1000;
 initialContent = Object.assign({}, INITIAL_GAME);
-const newTimer = makeTimer(initialContent.time);
-newTimer.onTimeClick = (remainingTime) => console.log(remainingTime);
 
-// const tick = () => {
-//   initialContent = Object.assign({}, initialContent, {time: initialContent.time - 1});
+// const newTimer = makeTimer(initialContent.time);
+// newTimer.onTimeClick = (reamaningTime) => {
+//   initialContent.time = reamaningTime;
 //   updateHeader(initialContent);
-//   console.log
 // };
 
+
 const startTimer = () => {
-  setInterval(() => newTimer.tick(), ONE_SECOND);
+  timer = setTimeout(() => {
+    tick();
+    startTimer();
+  }, ONE_SECOND);
 };
 
 const stopTimer = () => {
-  clearTimeout(newTimer);
-};
-
-const updateHeader = (state) => {
-  updateView(headerElement, new GameHeader(state));
+  initialContent.time = 30;
+  clearTimeout(timer);
 };
 
 const gameContainerElement = document.createElement(`div`);
 const headerElement = getElementFromTeamplate();
 const levelElement = getElementFromTeamplate();
-gameContainerElement.appendChild(headerElement);
+// gameContainerElement.appendChild(headerElement);
 gameContainerElement.appendChild(levelElement);
+
+const tick = () => {
+  initialContent.time--;
+  updateHeader(initialContent);
+  console.log(initialContent.time);
+  console.log(headerElement);
+};
+
+const updateHeader = (state) => {
+  // updateView(headerElement, new GameHeader(state));
+  const container = document.querySelector(`.main`);
+  updateView(container, new GameHeader(state));
+};
+
+// const replaceHeader = (container, view) => {
+//   container.innerHTML = ``;
+//   container.replaceChild(view.element);
+// }
 
 export const getLevel = (i) => GAME.levels[i];
 
 export const updateGame = (state) => {
-  updateView(headerElement, new GameHeader(state));
+  stopTimer();
+
   const levelView = renderLevelOfType(getLevel(state.level));
   updateView(levelElement, levelView);
   let putFooterStats = levelElement.querySelector(`.stats`);
@@ -62,8 +81,9 @@ export const updateGame = (state) => {
   } else if (getLevel(state.level).type === LEVELS_TYPES.TRIPLE) {
     levelView.onAnswer = answerHendlerTypeThree;
   }
-
 };
+
+
 const updateView = (container, view) => {
   container.innerHTML = ``;
   container.appendChild(view.element);
@@ -71,6 +91,7 @@ const updateView = (container, view) => {
 
 
 const answerHendlerTypeOne = (answer) => {
+  stopTimer();
   const level = getLevel(initialContent.level);
   if (!endOfGame(initialContent)) {
     if (answer === level.answers.answerInputTrueValue) {
@@ -85,10 +106,12 @@ const answerHendlerTypeOne = (answer) => {
     if (answer === level.answers.answerInputTrueValue) {
       initialContent.stats[initialContent.level] = `CORRECT`;
       continueGame();
+      startTimer();
     } else if (answer !== level.answers.answerInputTrueValue) {
       initialContent.stats[initialContent.level] = `WRONG`;
       initialContent.lives--;
       continueGame();
+      startTimer();
     }
   } else if (!canContinue(initialContent)) {
     initialContent.stats[initialContent.level] = `WRONG`;
@@ -98,27 +121,33 @@ const answerHendlerTypeOne = (answer) => {
 };
 
 const answerHendlerTypeTwo = (answer) => {
+  stopTimer();
   const level = getLevel(initialContent.level);
   if ((answer[ONE].value === level.answers.answerInputTrueValue[ONE]) && (answer[TWO].value === level.answers.answerInputTrueValue[TWO])) {
     initialContent.stats[initialContent.level] = `CORRECT`;
     continueGame();
+    startTimer();
   } else {
     initialContent.stats[initialContent.level] = `WRONG`;
     initialContent.lives--;
     continueGame();
+    startTimer();
   }
 };
 
 const answerHendlerTypeThree = (answer) => {
+  stopTimer();
   const level = getLevel(initialContent.level);
   if (canContinue(initialContent)) {
     if (answer === level.answers.answerImageUrl) {
       initialContent.stats[initialContent.level] = `CORRECT`;
       continueGame();
+      startTimer();
     } else if (answer !== level.answers.answerImageUrl) {
       initialContent.stats[initialContent.level] = `WRONG`;
       initialContent.lives--;
       continueGame();
+      startTimer();
     }
   } else if (!canContinue(initialContent)) {
     initialContent.stats[initialContent.level] = `WRONG`;
@@ -134,13 +163,13 @@ const continueGame = () => {
 
 const startGame = () => {
   initialContent = Object.assign({}, INITIAL_GAME);
-
+  updateHeader(initialContent);
   updateGame(initialContent);
   changeScreen(gameContainerElement);
-// startTimer();
+  startTimer();
 };
 
 
-startGame();
+// startGame();
 
 export default startGame;
