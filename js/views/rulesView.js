@@ -31,6 +31,8 @@ export default class GameRules extends AbstractView {
 
   OnRulesFormClick() {}
 
+  OnHeaderBackClick() {}
+
   bind() {
     addDelegatedEventListener(`input`, `.rules__input`, (evt) => {
       const goButton = document.querySelector(`.rules__button`);
@@ -38,6 +40,7 @@ export default class GameRules extends AbstractView {
     });
 
     addDelegatedEventListener(`submit`, `.rules__form`, this.OnRulesFormClick);
+    addDelegatedEventListener(`click`, `.header__back`, this.OnHeaderBackClick);
   }
 
   playerName() {

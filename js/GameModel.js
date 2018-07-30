@@ -1,10 +1,7 @@
 import {INITIAL_GAME} from './config';
-import {GAME} from './game-content';
-import changeScreen from './selectPage';
-import {canContinue} from './screens/game-logic';
-
-const getLevel = (i) => GAME.levels[i];
-
+import {canContinue, endOfGame} from './screens/game-logic';
+import {getLevel} from './new-game';
+const NULL = 0;
 export default class GameModel {
   constructor(data, playerName) {
     this.data = data;
@@ -13,23 +10,25 @@ export default class GameModel {
   }
 
   get state() {
-    return this.state;
+    return this._state;
   }
 
-  hasNextLevel() {
-    return getLevel(this._state.level + 1) !== void 0;
-  }
 
   nextLevel() {
-    this._state = changeScreen(this._state, this._state.level + 1);
+    this._state.level++;
   }
 
   canContinue() {
-    this._state = canContinue(this._state);
+    return canContinue(this._state);
   }
 
   lose() {
+    this._state.stats[this._state.level] = `WRONG`;
     this._state.lives--;
+  }
+
+  endOfGame() {
+    return endOfGame(this.state);
   }
 
 
@@ -41,7 +40,13 @@ export default class GameModel {
     return this._state.lives <= 0;
   }
 
+
+  outOfTime() {
+    return this._state.time === NULL;
+  }
+
+
   getCurrentLevel() {
-    return getLevel(this._state.level);
+    return getLevel(this._state.level, this.data);
   }
 }

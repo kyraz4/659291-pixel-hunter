@@ -1,29 +1,21 @@
-// возвращает игру в зависимости от типа
-import {renderTypeOneGame} from './renderTypeOneGame';
-import {renderTypeTwoGame} from './renderTypeTwoGame';
-import {renderTypeThreeGame} from './renderTypeThreeGame';
-import GameOneView from '../views/levelTypeOneViews';
-import GameTwoView from '../views/levelTypeTwoView';
-import GameThreeView from '../views/levelThreeTypeViews';
+import TypeOneView from '../views/TypeOneView';
+import TypeTwoView from '../views/TypeTwoViews';
+import TypeThreeView from '../views/TypeThreeViews';
 
-export const renderLevel = (game) => {
-  if (game.type === 1) {
-    return renderTypeTwoGame(game);
-  } else if (game.type === 2) {
-    return renderTypeOneGame(game);
-  } else if (game.type === 3) {
-    return renderTypeThreeGame(game);
-  }
-  return true;
+const LEVELS_TYPES = {
+  SINGLE: `tinder-like`,
+  DOUBLE: `two-of-two`,
+  TRIPLE: `one-of-three`
 };
 
-export const renderLevelOfType = (game) => {
-  if (game.type === 1) {
-    return new GameOneView(game);
-  } else if (game.type === 2) {
-    return new GameTwoView(game);
-  } else if (game.type === 3) {
-    return new GameThreeView(game);
+
+export const renderLevelOfType = (game, model) => {
+  if (game.type === LEVELS_TYPES.SINGLE) {
+    return new TypeOneView(game, model);
+  } else if (game.type === LEVELS_TYPES.DOUBLE) {
+    return new TypeTwoView(game, model);
+  } else if (game.type === LEVELS_TYPES.TRIPLE) {
+    return new TypeThreeView(game, model);
   }
   return true;
 };

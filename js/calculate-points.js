@@ -34,32 +34,37 @@ export const yourPoints = (res = [], helfp, countOfGames) => {
 
 
 export const calculatePoints = (state, helfp, gamesCount) => {
-  if (gamesCount < 10) {
+  if (gamesCount < 9) {
     return -1;
-  } else if (gamesCount > 10) {
+  } else if (gamesCount > 9) {
     return null;
   } else if (helfp === 0) {
     return `FAIL`;
-  } else if (gamesCount === 10) {
-    let trueNormalAnswersCount = 1;
-    let pointsAtTheMoment = 0;
-    const fastTimePoints = 150;
-    const slowTimePoints = 50;
+  } else if (gamesCount === 9) {
+    let trueAnswers = 0;
+    let fastAnswers = 0;
+    let slowAnswers = 0;
+    const fastTimeBonusPoints = 50;
+    const trueAnswerPoints = 100;
+    const slowTimePoints = -50;
     for (let i = 0; i < state.stats.length; i++) {
       if (state.stats[i] === `CORRECT`) {
-        trueNormalAnswersCount++;
+        trueAnswers++;
       } else if (state.stats[i] === `FAST`) {
-        pointsAtTheMoment = pointsAtTheMoment + fastTimePoints;
+        trueAnswers++;
+        fastAnswers++;
       } else if (state.stats[i] === `SLOW`) {
-        pointsAtTheMoment = pointsAtTheMoment + slowTimePoints;
-      } else if (state.stats[i] === `FALSE`) {
-        pointsAtTheMoment = pointsAtTheMoment + 0;
+        trueAnswers++;
+        slowAnswers++;
       }
     }
-    if ((trueNormalAnswersCount === 10) && (helfp === 3)) {
+    if ((trueAnswers === 9) && (helfp === 3) && (fastAnswers === 0) && (slowAnswers === 0)) {
       return 1150;
     } else {
-      return pointsAtTheMoment + helfp * slowTimePoints;
+      const resultPoints = trueAnswers * trueAnswerPoints + slowTimePoints * slowAnswers + fastAnswers * fastTimeBonusPoints + helfp * fastTimeBonusPoints;
+      const pointsWithoutBonus = trueAnswers * trueAnswerPoints;
+      const resultArray = [resultPoints, pointsWithoutBonus, fastAnswers, slowAnswers];
+      return resultArray;
     }
   }
   return 0;

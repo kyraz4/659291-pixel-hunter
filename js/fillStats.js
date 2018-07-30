@@ -6,7 +6,7 @@ const ANSVERS_TYPES = {
   FAST: `FAST`,
   SLOW: `SLOW`
 };
-export const fillStats = (stats = []) => {
+export const fillStats = (stats) => {
   let statsDom = getElementFromTeamplate(`<ul></ul>`);
   for (let i = 0; i < stats.length; i++) {
     if (stats[i] === ANSVERS_TYPES.UNKNOWN) {

@@ -18,12 +18,9 @@ export default class GreetingsView extends AbstractView {
     </div>`;
   }
 
-  OnHeaderBackClick() {}
-
   OnGreetingContiniueClick() {}
 
   bind() {
-    addDelegatedEventListener(`click`, `.header__back`, this.OnHeaderBackClick);
     addDelegatedEventListener(`click`, `.greeting__continue`, this.OnGreetingContiniueClick);
   }
 }

@@ -4,11 +4,12 @@ import changeScreen from './selectPage';
 import GreetingsScreen from './GreetingsScreen';
 
 export default class IntroScreen {
-  constructor(model) {
+  constructor(data, model) {
     this.model = model;
+    this.data = data;
     this.content = new GameIntro();
     this.content.onAsteriskClick = () =>{
-      this.nextLevel = new GreetingsScreen();
+      this.nextLevel = new GreetingsScreen(this.data);
       changeScreen(this.nextLevel.element);
     };
 

@@ -1,12 +1,14 @@
 import IntroScreen from './IntroScreen';
-import GameModel from './GameModel';
 import GameScreen from './GameScreen';
-import adaptServerData from './adapter';
+import StatsScreen from './StatsScreen';
+import ErrorView from './views/ErrorView';
+import GameModel from './GameModel';
+import Loader from './Loader';
 
 const main = document.querySelector(`main.central`);
 const changeView = (element) => {
   main.innerHTML = ``;
-  main.appendChild(element);
+  main.appendChild(element.cloneNode(true));
 };
 
 const checkStatus = (response) => {
@@ -20,28 +22,36 @@ const checkStatus = (response) => {
 let gameData;
 export default class Application {
 
-  static start() {
+  static showWelcome() {
     window.fetch(`https://es.dump.academy/pixel-hunter/questions`).
     then(checkStatus).
-    then((response) => response.json()).
-    then((data) => gameData = adaptServerData(data)).
-    then(() => Application.showWelcome());
+    then((Responce) => Responce.json()).
+    then((data) => {
+      gameData = data;
+    }).then(() => {
+      const welcome = new IntroScreen(gameData);
+      changeView(welcome.element);
+    }).catch(Application.showError);
   }
 
-  static showWelcome() {
-    const welcome = new IntroScreen();
-    changeView(welcome.element);
-  }
-
-  static showGame(userName) {
-    const model = new GameModel(userName);
-    const gameScreen = new GameScreen(gameData, model);
+  static showGame(data, userName) {
+    const model = new GameModel(data, userName);
+    const gameScreen = new GameScreen(model);
     changeView(gameScreen.element);
     gameScreen.startGame();
   }
 
-//   static showStats(stats) {
-//     const statistics = new StatsScreen(stats);
-//     changeView(statistics.element);
-//   }
+  static showStats(model) {
+    // debugger;
+    const statistics = new StatsScreen(model);
+    Loader.saveResults(model.state, model.playerName).
+    then(() => Loader.loadResults(model.playerName));
+    changeView(statistics.element);
+  }
+
+  static showError(error) {
+    const errorView = new ErrorView(error);
+    changeView(errorView.element);
+  }
+
 }

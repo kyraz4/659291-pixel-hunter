@@ -1,6 +1,7 @@
 import AbstractView from './AbstractView';
 import {fillStats} from '../fillStats';
-export default class gameOneView extends AbstractView {
+
+export default class FooterView extends AbstractView {
   constructor(level) {
     super();
     this.level = level;

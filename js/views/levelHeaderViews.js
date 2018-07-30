@@ -1,4 +1,5 @@
 import AbstractView from './AbstractView';
+import addDelegatedEventListener from '../addDelegatedEventListener';
 export default class GameHeader extends AbstractView {
   constructor(level) {
     super();
@@ -22,4 +23,9 @@ fill(`<img src="img/heart__empty.svg" class="game__heart" alt="Life" width="32" 
     </header>`;
   }
 
+  OnHeaderBackClick() {}
+
+  bind() {
+    addDelegatedEventListener(`click`, `.header__back`, this.OnHeaderBackClick);
+  }
 }
