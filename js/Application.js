@@ -42,7 +42,6 @@ export default class Application {
   }
 
   static showStats(model) {
-    // debugger;
     const statistics = new StatsScreen(model);
     Loader.saveResults(model.state, model.playerName).
     then(() => Loader.loadResults(model.playerName));
