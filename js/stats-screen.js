@@ -1,4 +1,4 @@
-import StatsView from './views/statsViews';
+import StatsView from './views/statsView';
 
 export default class StatsScreen {
   constructor(model) {

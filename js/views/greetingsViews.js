@@ -1,4 +1,4 @@
-import AbstractView from './AbstractView';
+import AbstractView from './abstractView';
 import addDelegatedEventListener from '../addDelegatedEventListener';
 
 export default class GreetingsView extends AbstractView {
@@ -18,9 +18,9 @@ export default class GreetingsView extends AbstractView {
     </div>`;
   }
 
-  OnGreetingContiniueClick() {}
+  onGreetingContiniueClick() {}
 
   bind() {
-    addDelegatedEventListener(`click`, `.greeting__continue`, this.OnGreetingContiniueClick);
+    addDelegatedEventListener(`click`, `.greeting__continue`, this.onGreetingContiniueClick);
   }
 }

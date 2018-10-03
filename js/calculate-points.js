@@ -23,7 +23,7 @@ export const yourPoints = (res = [], helfp, countOfGames) => {
         pointsAtTheMoment = pointsAtTheMoment + 0;
       }
     }
-    if ((trueNormalAnswersCount === 10) && (helfp === 3)) {
+    if ((trueNormalAnswersCount === 10) && (helfp === FULL_LIVES)) {
       return 1150;
     } else {
       return pointsAtTheMoment + helfp * slowTimePoints;
@@ -32,33 +32,39 @@ export const yourPoints = (res = [], helfp, countOfGames) => {
   return 0;
 };
 
+const CORRECT = `CORRECT`;
+const FAST = `FAST`;
+const SLOW = `SLOW`;
+const FULL_LIVES = 3;
+const ALL_GAMES = 9;
+const CONST_NULL = 0;
 
 export const calculatePoints = (state, helfp, gamesCount) => {
-  if (gamesCount < 9) {
+  if (gamesCount < ALL_GAMES) {
     return -1;
-  } else if (gamesCount > 9) {
+  } else if (gamesCount > ALL_GAMES) {
     return null;
   } else if (helfp === 0) {
     return `FAIL`;
-  } else if (gamesCount === 9) {
-    let trueAnswers = 0;
-    let fastAnswers = 0;
-    let slowAnswers = 0;
+  } else if (gamesCount === ALL_GAMES) {
+    let trueAnswers = CONST_NULL;
+    let fastAnswers = CONST_NULL;
+    let slowAnswers = CONST_NULL;
     const fastTimeBonusPoints = 50;
     const trueAnswerPoints = 100;
     const slowTimePoints = -50;
     for (let i = 0; i < state.stats.length; i++) {
-      if (state.stats[i] === `CORRECT`) {
+      if (state.stats[i] === CORRECT) {
         trueAnswers++;
-      } else if (state.stats[i] === `FAST`) {
+      } else if (state.stats[i] === FAST) {
         trueAnswers++;
         fastAnswers++;
-      } else if (state.stats[i] === `SLOW`) {
+      } else if (state.stats[i] === SLOW) {
         trueAnswers++;
         slowAnswers++;
       }
     }
-    if ((trueAnswers === 9) && (helfp === 3) && (fastAnswers === 0) && (slowAnswers === 0)) {
+    if ((trueAnswers === ALL_GAMES) && (helfp === FULL_LIVES) && (fastAnswers === CONST_NULL) && (slowAnswers === CONST_NULL)) {
       return 1150;
     } else {
       const resultPoints = trueAnswers * trueAnswerPoints + slowTimePoints * slowAnswers + fastAnswers * fastTimeBonusPoints + helfp * fastTimeBonusPoints;

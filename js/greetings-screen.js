@@ -1,8 +1,6 @@
-import changeScreen from './selectPage';
+import changeScreen from './select-page';
 import GreetingsView from './views/greetingsViews';
-// import createIntroFragment from './screens/intro';
-// import createRulesScreenFragment from './screens/rules';
-import RulesScreen from './RulesScreen';
+import RulesScreen from './rules-screen';
 
 
 export default class GreetingsScreen {
@@ -10,7 +8,7 @@ export default class GreetingsScreen {
     this.model = model;
     this.data = data;
     this.content = new GreetingsView();
-    this.content.OnGreetingContiniueClick = () => {
+    this.content.onGreetingContiniueClick = () => {
       this.nextLevel = new RulesScreen(this.data);
       changeScreen(this.nextLevel.element);
     };

@@ -1,5 +1,7 @@
-import AbstractView from './AbstractView';
+import AbstractView from './abstractView';
 import addDelegatedEventListener from '../addDelegatedEventListener';
+
+const LIVES = 3;
 export default class GameHeader extends AbstractView {
   constructor(level) {
     super();
@@ -16,16 +18,16 @@ export default class GameHeader extends AbstractView {
     </div>
     <h1 class="game__timer">${this.level.time}</h1>
     <div class="game__lives">
-      ${new Array(3 - this.level.lives).
+      ${new Array(LIVES - this.level.lives).
 fill(`<img src="img/heart__empty.svg" class="game__heart" alt="Life" width="32" height="32">`).join(``)}
       ${new Array(this.level.lives).fill(`<img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">`).join(``)}
     </div>
     </header>`;
   }
 
-  OnHeaderBackClick() {}
+  onHeaderBackClick() {}
 
   bind() {
-    addDelegatedEventListener(`click`, `.header__back`, this.OnHeaderBackClick);
+    addDelegatedEventListener(`click`, `.header__back`, this.onHeaderBackClick);
   }
 }

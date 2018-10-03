@@ -1,5 +1,5 @@
-import AbstractView from './AbstractView';
-import {fillStats} from '../fillStats';
+import AbstractView from './abstractView';
+import {fillStats} from '../fill-stats';
 
 export default class FooterView extends AbstractView {
   constructor(level) {
@@ -18,11 +18,5 @@ export default class FooterView extends AbstractView {
 
   render() {
     return fillStats(this.level.stats);
-  }
-
-  get element() {
-    this._element = this.render();
-    this.bind(this._element);
-    return this._element;
   }
 }

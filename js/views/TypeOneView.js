@@ -1,4 +1,4 @@
-import AbstractView from './AbstractView';
+import AbstractView from './abstractView';
 import addDelegatedEventListener from '../addDelegatedEventListener';
 
 const CONSTANT_NULL = 0;

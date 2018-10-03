@@ -1,9 +1,9 @@
-import changeScreen from './selectPage';
+import changeScreen from './select-page';
 import GameHeader from './views/levelHeaderViews';
-import {renderLevelOfType} from './screens/renderLevel.js';
+import {renderLevelOfType} from './screens/render-level';
 import FooterView from './views/FooterView';
 import {updateView, resultOfTime} from './new-game';
-import Application from './Application';
+import Application from './application';
 
 const LEVELS_TYPES = {
   SINGLE: `tinder-like`,
@@ -16,7 +16,7 @@ const TIME_TO_BLIND = 6;
 const ONE_SECOND = 1000;
 const TWO = 1;
 const FOUR = 3;
-
+const FULL_TIME = 30;
 export const getLevel = (i, data) => data[i];
 
 export default class GameScreen {
@@ -36,8 +36,6 @@ export default class GameScreen {
     putFooterStats.appendChild(new FooterView(this.model.state).element);
 
     this._timer = null;
-
-
   }
 
   get element() {
@@ -66,7 +64,7 @@ export default class GameScreen {
   }
 
   stopTimer() {
-    this.model.state.time = 30;
+    this.model.state.time = FULL_TIME;
     clearTimeout(this._timer);
   }
 

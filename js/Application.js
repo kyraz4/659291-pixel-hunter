@@ -1,29 +1,24 @@
-import IntroScreen from './IntroScreen';
-import GameScreen from './GameScreen';
-import StatsScreen from './StatsScreen';
-import ErrorView from './views/ErrorView';
-import GameModel from './GameModel';
-import Loader from './Loader';
+import IntroScreen from './intro-screen';
+import GameScreen from './game-screen';
+import StatsScreen from './stats-screen';
+import ErrorView from './views/errorView';
+import GameModel from './game-model';
+import Loader from './loader';
+import {checkStatus} from './loader';
 
+const LINK_HTTP = `https://es.dump.academy/pixel-hunter/questions`;
 const main = document.querySelector(`main.central`);
 const changeView = (element) => {
   main.innerHTML = ``;
   main.appendChild(element.cloneNode(true));
 };
 
-const checkStatus = (response) => {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  } else {
-    throw new Error(`${response.status}: ${response.statusText}`);
-  }
-};
-
 let gameData;
+
 export default class Application {
 
   static showWelcome() {
-    window.fetch(`https://es.dump.academy/pixel-hunter/questions`).
+    window.fetch(LINK_HTTP).
     then(checkStatus).
     then((Responce) => Responce.json()).
     then((data) => {

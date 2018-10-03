@@ -1,5 +1,5 @@
 import GameRules from './views/rulesView';
-import Application from './Application';
+import Application from './application';
 import ModalView from './views/modalScrenView';
 
 export default class RulesScreen {
@@ -8,12 +8,12 @@ export default class RulesScreen {
     this.data = data;
     this.content = new GameRules();
 
-    this.content.OnRulesFormClick = () => {
+    this.content.onRulesFormClick = () => {
       this.userName = this.content.playerName();
       Application.showGame(this.data, this.userName);
     };
 
-    this.content.OnHeaderBackClick = () => {
+    this.content.onHeaderBackClick = () => {
       this.modal = new ModalView();
       this.modal.onButtonOkeyClick = () => {
         Application.showWelcome();
@@ -30,9 +30,7 @@ export default class RulesScreen {
       } else {
         Application.showWelcome();
       }
-
     };
-    console.log(this.data);
     this.root = document.createElement(`div`);
     this.root.classList.add(`main__rules`);
     this.root.appendChild(this.content.element);

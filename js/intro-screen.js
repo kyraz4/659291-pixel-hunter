@@ -1,7 +1,6 @@
-import GameIntro from './views/introViews';
-// import createGreetingScreenFragment from './screens/greetings';
-import changeScreen from './selectPage';
-import GreetingsScreen from './GreetingsScreen';
+import GameIntro from './views/introView';
+import changeScreen from './select-page';
+import GreetingsScreen from './greetings-screen';
 
 export default class IntroScreen {
   constructor(data, model) {

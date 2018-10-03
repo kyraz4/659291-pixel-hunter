@@ -1,4 +1,4 @@
-import AbstractView from './AbstractView';
+import AbstractView from './abstractView';
 
 export default class ErrorView extends AbstractView {
   get teamplate() {

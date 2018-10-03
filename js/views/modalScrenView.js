@@ -1,4 +1,4 @@
-import AbstractView from './AbstractView';
+import AbstractView from './abstractView';
 import addDelegatedEventListener from '../addDelegatedEventListener';
 
 export default class ModalView extends AbstractView {

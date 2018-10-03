@@ -1,5 +1,5 @@
-const count = 10;
-const stats = Array(count).fill(null);
+const COUNT = 10;
+const stats = Array(COUNT).fill(null);
 
 export const INITIAL_GAME = {
   lives: 3,

@@ -1,7 +1,11 @@
-import AbstractView from './AbstractView';
+import AbstractView from './abstractView';
 import {calculatePoints} from '../calculate-points';
-import {fillStatsForStatsScreen} from '../fillStats';
+import {fillStatsForStatsScreen} from '../fill-stats';
 
+const RESULT_POINTS = 0;
+const POINTS_WITHOUT_BONUS = 1;
+const FAST_ANSWERS = 2;
+const SLOW_ANSWERS = 3;
 
 export default class StatsView extends AbstractView {
   constructor(model) {
@@ -30,13 +34,13 @@ export default class StatsView extends AbstractView {
         </ul>
         </td>
         <td class="result__points">×&nbsp;100</td>
-        <td class="result__total">${calculatePoints(this.model.state, this.model.state.lives, this.model.state.level)[1]}</td>
+        <td class="result__total">${calculatePoints(this.model.state, this.model.state.lives, this.model.state.level)[POINTS_WITHOUT_BONUS]}</td>
       <tr>
         <td></td>
         <td class="result__extra">Бонус за скорость:</td>
-        <td class="result__extra">${calculatePoints(this.model.state, this.model.state.lives, this.model.state.level)[2]}&nbsp;<span class="stats__result stats__result--fast"></span></td>
+        <td class="result__extra">${calculatePoints(this.model.state, this.model.state.lives, this.model.state.level)[FAST_ANSWERS]}&nbsp;<span class="stats__result stats__result--fast"></span></td>
         <td class="result__points">×&nbsp;50</td>
-        <td class="result__total">${calculatePoints(this.model.state, this.model.state.lives, this.model.state.level)[2] * 50}</td>
+        <td class="result__total">${calculatePoints(this.model.state, this.model.state.lives, this.model.state.level)[FAST_ANSWERS] * 50}</td>
       </tr>
       <tr>
         <td></td>
@@ -48,12 +52,12 @@ export default class StatsView extends AbstractView {
       <tr>
         <td></td>
         <td class="result__extra">Штраф за медлительность:</td>
-        <td class="result__extra">${calculatePoints(this.model.state, this.model.state.lives, this.model.state.level)[3]}&nbsp;<span class="stats__result stats__result--slow"></span></td>
+        <td class="result__extra">${calculatePoints(this.model.state, this.model.state.lives, this.model.state.level)[SLOW_ANSWERS]}&nbsp;<span class="stats__result stats__result--slow"></span></td>
         <td class="result__points">×&nbsp;50</td>
-        <td class="result__total">-${calculatePoints(this.model.state, this.model.state.lives, this.model.state.level)[3] * 50}</td>
+        <td class="result__total">-${calculatePoints(this.model.state, this.model.state.lives, this.model.state.level)[SLOW_ANSWERS] * 50}</td>
       </tr>
       </tr>
-        <td colspan="5" class="result__total  result__total--final">${calculatePoints(this.model.state, this.model.state.lives, this.model.state.level)[0]}</td>
+        <td colspan="5" class="result__total  result__total--final">${calculatePoints(this.model.state, this.model.state.lives, this.model.state.level)[RESULT_POINTS]}</td>
       </tr>
     </table>
     </div>`;
