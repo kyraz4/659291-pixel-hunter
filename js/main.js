@@ -1,4 +1,3 @@
-import createIntroFragment from './screens/intro';
-import changeScreen from './selectPage';
-changeScreen(createIntroFragment());
+import Application from './application';
+Application.showWelcome();
 

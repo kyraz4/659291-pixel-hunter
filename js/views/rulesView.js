@@ -1,4 +1,4 @@
-import AbstractView from './AbstractView';
+import AbstractView from './abstractView';
 import addDelegatedEventListener from '../addDelegatedEventListener';
 
 export default class GameRules extends AbstractView {
@@ -29,7 +29,9 @@ export default class GameRules extends AbstractView {
     </div>`;
   }
 
-  OnRulesFormClick() {}
+  onRulesFormClick() {}
+
+  onHeaderBackClick() {}
 
   bind() {
     addDelegatedEventListener(`input`, `.rules__input`, (evt) => {
@@ -37,6 +39,12 @@ export default class GameRules extends AbstractView {
       goButton.disabled = evt.target.value === ``;
     });
 
-    addDelegatedEventListener(`submit`, `.rules__form`, this.OnRulesFormClick);
+    addDelegatedEventListener(`submit`, `.rules__form`, this.onRulesFormClick);
+    addDelegatedEventListener(`click`, `.header__back`, this.onHeaderBackClick);
+  }
+
+  playerName() {
+    const name = document.querySelector(`.rules__input`);
+    return name.value;
   }
 }

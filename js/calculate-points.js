@@ -23,7 +23,7 @@ export const yourPoints = (res = [], helfp, countOfGames) => {
         pointsAtTheMoment = pointsAtTheMoment + 0;
       }
     }
-    if ((trueNormalAnswersCount === 10) && (helfp === 3)) {
+    if ((trueNormalAnswersCount === 10) && (helfp === FULL_LIVES)) {
       return 1150;
     } else {
       return pointsAtTheMoment + helfp * slowTimePoints;
@@ -32,34 +32,45 @@ export const yourPoints = (res = [], helfp, countOfGames) => {
   return 0;
 };
 
+const CORRECT = `CORRECT`;
+const FAST = `FAST`;
+const SLOW = `SLOW`;
+const FULL_LIVES = 3;
+const ALL_GAMES = 9;
+const CONST_NULL = 0;
 
 export const calculatePoints = (state, helfp, gamesCount) => {
-  if (gamesCount < 10) {
+  if (gamesCount < ALL_GAMES) {
     return -1;
-  } else if (gamesCount > 10) {
+  } else if (gamesCount > ALL_GAMES) {
     return null;
   } else if (helfp === 0) {
     return `FAIL`;
-  } else if (gamesCount === 10) {
-    let trueNormalAnswersCount = 1;
-    let pointsAtTheMoment = 0;
-    const fastTimePoints = 150;
-    const slowTimePoints = 50;
+  } else if (gamesCount === ALL_GAMES) {
+    let trueAnswers = CONST_NULL;
+    let fastAnswers = CONST_NULL;
+    let slowAnswers = CONST_NULL;
+    const fastTimeBonusPoints = 50;
+    const trueAnswerPoints = 100;
+    const slowTimePoints = -50;
     for (let i = 0; i < state.stats.length; i++) {
-      if (state.stats[i] === `CORRECT`) {
-        trueNormalAnswersCount++;
-      } else if (state.stats[i] === `FAST`) {
-        pointsAtTheMoment = pointsAtTheMoment + fastTimePoints;
-      } else if (state.stats[i] === `SLOW`) {
-        pointsAtTheMoment = pointsAtTheMoment + slowTimePoints;
-      } else if (state.stats[i] === `FALSE`) {
-        pointsAtTheMoment = pointsAtTheMoment + 0;
+      if (state.stats[i] === CORRECT) {
+        trueAnswers++;
+      } else if (state.stats[i] === FAST) {
+        trueAnswers++;
+        fastAnswers++;
+      } else if (state.stats[i] === SLOW) {
+        trueAnswers++;
+        slowAnswers++;
       }
     }
-    if ((trueNormalAnswersCount === 10) && (helfp === 3)) {
+    if ((trueAnswers === ALL_GAMES) && (helfp === FULL_LIVES) && (fastAnswers === CONST_NULL) && (slowAnswers === CONST_NULL)) {
       return 1150;
     } else {
-      return pointsAtTheMoment + helfp * slowTimePoints;
+      const resultPoints = trueAnswers * trueAnswerPoints + slowTimePoints * slowAnswers + fastAnswers * fastTimeBonusPoints + helfp * fastTimeBonusPoints;
+      const pointsWithoutBonus = trueAnswers * trueAnswerPoints;
+      const resultArray = [resultPoints, pointsWithoutBonus, fastAnswers, slowAnswers];
+      return resultArray;
     }
   }
   return 0;
